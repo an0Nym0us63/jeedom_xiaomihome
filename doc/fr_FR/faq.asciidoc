@@ -1,0 +1,65 @@
+[panel,primary]
+.Quel type de gateway rflink est supporté ?
+--
+RFLink utilise un Arduino Mega, celui-ci doit être branché en USB sur un Jeedom (maître ou esclave)
+
+--
+
+[panel,primary]
+.Qu'est-ce que rflink ?
+--
+RFLink est une gateway pour les protocoles sans fil RF433
+
+--
+
+[panel,primary]
+.Ma passerelle est branchée en USB sur un jeedom satellite et le service ne démarre pas ?
+--
+Vérifier votre configuration réseau Jeedom dans Général->Administration->Configuration dans la partie Réseau
+--
+
+[panel,primary]
+.Est-ce que je peux flasher le firmware de mon Rflink en ligne de commande ?
+--
+Oui avec la commande ci dessous depuis votre Jeedom
+
+/usr/bin/avrdude -v -v -v -p atmega2560 -c wiring -D -P /dev/ttyUSB0 -b 115200 -U flash:w:/usr/share/nginx/www/jeedom/plugins/rflink/resources/rflink/RFLink.cpp.hex:i
+--
+
+[panel,primary]
+.Comment ajouter un store RTS (Somfy) ?
+--
+Vous devez commencer par appuyer sur un des boutons de la télécommandes
+
+Un équipement va être créer comprenant 4 commandes (pair, up, down, stop) et une info (statut)
+
+Vous devez à partir de ce moment, mettre votre volet en mode appairage (en appuyant sur le bouton adéquat de la télécommande)
+
+Puis appuyer sur le bouton "Tester" de la commande PAIR
+--
+
+[panel,danger]
+.Aucun équipement ne se créé
+--
+Sur la page de configuration vous pouvez vérifier que le service du plugin est démarré et connecté.
+
+Allez voir dans la section logs de Jeedom : catégorie rflink et eventuellement la catégorie API
+--
+
+[panel,danger]
+.Comment se créer mes équipements?
+--
+A réception de trames, l'équipement et ses commandes sont créées
+--
+
+[panel,danger]
+.Je suspecte un problème de connexion avec ma gateway
+--
+Sur la page de configuration du plugin, vous avez une note d'information qui donne le statut du service du plugin Jeedom et également le statut de connexion de celui-ci à la gateway
+--
+
+[panel,danger]
+.Mes logs montrent que j'ai bien de la communication de périphériques, mais je n'ai pas d'équipement qui apparait dans Jeedom
+--
+Vérifier votre configuration réseau dans Jeedom. Vous devez bien avoir rempli tous les champs de votre adresse interne. Protocole, adresse et complément url surtout (si vous êtes sur une intstallation Jeedom DIY, vous devez avoir /jeedom dans "complément")
+--

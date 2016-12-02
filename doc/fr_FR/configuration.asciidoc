@@ -1,0 +1,43 @@
+=== Configuration du plugin
+
+Sur la page du plugin on peut :
+
+  * Voir la version actuelle du firmware de la gateway
+
+  * Flasher et upgrader la version de firmware
+
+  * Configurer le port USB de la gateway ou indiquer si c'est une réseau
+
+  * Entrer l'adresse réseau si c'est une gateway réseau (avec le port d'écoute)
+
+==== Configuration de l'inclusion
+
+Ce choix permet de décider si le controleur va créer des nouveaux équipements Jeedom pour les périphériques détectés et inconnus.
+
+En le passant en "désactivé", aucun nouvel équipement n'apparaitra dans Jeedom.
+
+Il est accessible sur la page équipement Rflink
+
+
+==== Configuration des nodes et leurs capteurs
+
+Les équipements Jeedom sont automatiquement créés à l'envoi des informations des sondes.
+
+De la même facon que les équipements sont automatiquement créés à l'arrivée de nouveaux périphériques, les capteurs des nodes sont automatiquement créés comme des "Informations" dans Jeedom ainsi que les commandes RECUES (il faut créer des commandes dans ce cas).
+
+
+==== Configuration des commandes des nodes
+
+Les commandes ne sont pas toutes créées automatiquement.
+
+Pour en créer une, il faut :
+
+  * faire un ajout de commande action sur la page de l'équipement
+
+  * puis il faut remplir le champ valeur en indiquant la bonne valeur SWITCH;CMD
+
+  * SWITCH dans la colonne capteur
+
+  * CMD dans la colonne information
+
+Exemple : si on a une information créée en appuyant sur le bouton 2 avec en valeur "2;OFF". Il faut rentrer ce "2;OFF" dans la valeur de la commande créée

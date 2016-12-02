@@ -1,0 +1,10 @@
+{
+	"id" : "xiaomihome",
+	"name" : "Xiaomi Home",
+	"licence" : "AGPL",
+	"author" : "lunarok",
+	"require" : "2.4",
+	"category" : "automation protocol",
+    "hasDependency" : 1,
+    "hasOwnDeamon" : 1
+}
