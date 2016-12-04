@@ -16,61 +16,9 @@
 
 */
 
-$("#bt_addxiaomihomeInfo").on('click', function(event) {
-  var _cmd = {type: 'info'};
-  addCmdToTable(_cmd);
-});
-
-$("#bt_addxiaomihomeAction").on('click', function(event) {
-  var _cmd = {type: 'action'};
-  addCmdToTable(_cmd);
-});
-
 $('#bt_healthRflink').on('click', function () {
   $('#md_modal').dialog({title: "{{Santé Rflink}}"});
   $('#md_modal').load('index.php?v=d&plugin=xiaomihome&modal=health').dialog('open');
-});
-
-$('.changeIncludeState').on('click', function () {
-    var el = $(this);
-    jeedom.config.save({
-        plugin : 'xiaomihome',
-        configuration: {include_mode: el.attr('data-state')},
-        error: function (error) {
-          $('#div_alert').showAlert({message: error.message, level: 'danger'});
-      },
-      success: function () {
-        if (el.attr('data-state') == 1) {
-            $.hideAlert();
-            $('.changeIncludeState:not(.card)').removeClass('btn-default').addClass('btn-success');
-            $('.changeIncludeState').attr('data-state', 0);
-            $('.changeIncludeState.card').css('background-color','#8000FF');
-            $('.changeIncludeState.card span center').text('{{Arrêter l\'inclusion}}');
-            $('.changeIncludeState:not(.card)').html('<i class="fa fa-sign-in fa-rotate-90"></i> {{Arreter inclusion}}');
-            $('#div_inclusionAlert').showAlert({message: '{{Vous etes en mode inclusion. Recliquez sur le bouton d\'inclusion pour sortir de ce mode}}', level: 'warning'});
-        } else {
-            $.hideAlert();
-            $('.changeIncludeState:not(.card)').addClass('btn-default').removeClass('btn-success btn-danger');
-            $('.changeIncludeState').attr('data-state', 1);
-            $('.changeIncludeState:not(.card)').html('<i class="fa fa-sign-in fa-rotate-90"></i> {{Mode inclusion}}');
-            $('.changeIncludeState.card span center').text('{{Mode inclusion}}');
-            $('.changeIncludeState.card').css('background-color','#ffffff');
-            $('#div_inclusionAlert').hideAlert();
-        }
-    }
-});
-});
-
-$('body').on('xiaomihome::includeDevice', function (_event,_options) {
-    if (modifyWithoutSave) {
-        $('#div_inclusionAlert').showAlert({message: '{{Un périphérique vient d\'être inclu/exclu. Veuillez réactualiser la page}}', level: 'warning'});
-    } else {
-        if (_options == '') {
-            window.location.reload();
-        } else {
-            window.location.href = 'index.php?v=d&p=xiaomihome&m=xiaomihome&id=' + _options;
-        }
-    }
 });
 
 $("#table_cmd").delegate(".listEquipementInfo", 'click', function () {

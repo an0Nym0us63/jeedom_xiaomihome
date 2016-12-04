@@ -177,16 +177,23 @@ if ($state == 1) {
               </div>
 
               <div class="form-group">
-                <label class="col-sm-3 control-label">{{Protocole}}</label>
+                <label class="col-sm-3 control-label">{{Identifiant}}</label>
                 <div class="col-sm-3">
-                  <input type="text" class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="protocol" placeholder="{{Protocole xiaomihome}}"/>
+                  <input type="text" class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="sid"/>
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-sm-3 control-label">{{Identifiant}}</label>
+                <label class="col-sm-3 control-label">{{Short ID}}</label>
                 <div class="col-sm-3">
-                  <input type="text" class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="id" placeholder="{{Id xiaomihome}}"/>
+                  <input type="text" class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="short_id"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 control-label">{{Modèle}}</label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="model"/>
                 </div>
               </div>
 
@@ -197,48 +204,6 @@ if ($state == 1) {
                 </div>
               </div>
 
-
-              <div class="form-group">
-                <label class="col-sm-3 control-label">{{Catégorie du noeud}}</label>
-                <div class="col-sm-3">
-                  <select id="sel_icon" class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="icone">
-                    <option value="">{{Aucun}}</option>
-                    <option value="433">{{RF433}}</option>
-                    <option value="barometre">{{Baromètre}}</option>
-                    <option value="boiteauxlettres">{{Boite aux Lettres}}</option>
-                    <option value="chauffage">{{Chauffage}}</option>
-                    <option value="compteur">{{Compteur}}</option>
-                    <option value="contact">{{Contact}}</option>
-                    <option value="feuille">{{Culture}}</option>
-                    <option value="custom">{{Custom}}</option>
-                    <option value="dimmer">{{Dimmer}}</option>
-                    <option value="energie">{{Energie}}</option>
-                    <option value="garage">{{Garage}}</option>
-                    <option value="humidity">{{Humidité}}</option>
-                    <option value="humiditytemp">{{Humidité et Température}}</option>
-                    <option value="hydro">{{Hydrométrie}}</option>
-                    <option value="ir2">{{Infra Rouge}}</option>
-                    <option value="jauge">{{Jauge}}</option>
-                    <option value="light">{{Luminosité}}</option>
-                    <option value="meteo">{{Météo}}</option>
-                    <option value="motion">{{Mouvement}}</option>
-                    <option value="multisensor">{{Multisensor}}</option>
-                    <option value="prise">{{Prise}}</option>
-                    <option value="relay">{{Relais}}</option>
-                    <option value="rfid">{{RFID}}</option>
-                    <option value="teleinfo">{{Téléinfo}}</option>
-                    <option value="temp">{{Température}}</option>
-                    <option value="thermostat">{{Thermostat}}</option>
-                    <option value="volet">{{Volet}}</option>
-                  </select>
-                </div>
-              </div>
-
-            <div class="form-group">
-              <div style="text-align: center">
-                <img name="icon_visu" src="" width="160" height="200"/>
-              </div>
-            </div>
 
 
           </fieldset>
