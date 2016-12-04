@@ -55,28 +55,38 @@ class xiaomihome extends eqLogic {
         );
     }
 
-    public static function receiveData($json) {
-        //log::add('rflink', 'debug', 'Body ' . print_r($json,true));
-        $body = json_decode($json, true);
-        switch ($body['type']) {
-            case 'motion':
-                xiaomihome::receiveMotion($json);
-                break;
-            case 'door':
-                xiaomihome::receiveDoor($json);
-                break;
-            case 'switch':
-                xiaomihome::receiveSwitch($json);
-                break;
-            case 'temp':
-                xiaomihome::receiveTemp($json);
-                break;
-            case 'cube':
-                xiaomihome::receiveMotion($json);
-                break;
-            default:
-                # code...
-                break;
+    public static function receiveId($sid, $short_id, $model) {
+        $xiaomihome = self::byLogicalId($sid, 'xiaomihome');
+        if (!is_object($xiaomihome)) {
+            $xiaomihome = new xiaomihome();
+            $xiaomihome->setEqType_name('xiaomihome');
+            $xiaomihome->setLogicalId($sid);
+            $xiaomihome->setName($model . ' ' . $short_id);
+            $xiaomihome->setConfiguration('sid', $sid);
+            $xiaomihome->setConfiguration('short_id',$short_id);
+            $xiaomihome->setConfiguration('model',$model);
+            $xiaomihome->save();
+        }
+    }
+
+    public static function receiveData($sid, $key, $value) {
+        $xiaomihome = self::byLogicalId($sid, 'xiaomihome');
+        if (is_object($xiaomihome)) {
+            $xiaomihomeCmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($xiaomihome->getId(),$key);
+            if (!is_object($xiaomihomeCmd)) {
+                log::add('xiaomihome', 'debug', 'Création de la commande ' . $key);
+                $xiaomihomeCmd = new xiaomihomeCmd();
+                $xiaomihomeCmd->setName(__($key, __FILE__));
+                $xiaomihomeCmd->setEqLogic_id($xiaomihome->id);
+                $xiaomihomeCmd->setEqType('xiaomihome');
+                $xiaomihomeCmd->setLogicalId($key);
+                $xiaomihomeCmd->setType('info');
+                $xiaomihomeCmd->setSubType('string');
+                $xiaomihomeCmd->setTemplate("mobile",'line' );
+                $xiaomihomeCmd->setTemplate("dashboard",'line' );
+                $xiaomihomeCmd->save();
+            }
+            $xiaomihome->checkAndUpdateCmd($key, $value);
         }
     }
 

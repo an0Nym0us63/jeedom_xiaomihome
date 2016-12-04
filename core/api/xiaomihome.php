@@ -22,9 +22,10 @@
  	die();
  }
 
- $json = file_get_contents('php://input');
- switch ($messageType) {
-   case 'saveValue' : xiaomihome::receiveData($json); break;
+ $body = json_decode(file_get_contents('php://input'), true);
+ xiaomihome::receiveId($body['sid'], $body['short_id'], $body['model']);
+ foreach ($body['data'] as $key => $value) {
+     xiaomihome::receiveData($body['sid'], $key, $value);
  }
 
  return true;
