@@ -1,7 +1,7 @@
 import logging
 import sys
 import time
-import mihome
+from mihome import *
 import requests
 
 def push_data(data):
