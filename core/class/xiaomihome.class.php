@@ -113,7 +113,7 @@ class xiaomihome extends eqLogic {
         $url = network::getNetworkAccess('internal') . '/plugins/xiaomihome/core/api/xiaomihome.php?apikey=' . jeedom::getApiKey('xiaomihome');
         $log = log::convertLogLevel(log::getLogLevel('xiaomihome'));
         $sensor_path = realpath(dirname(__FILE__) . '/../../resources');
-        $cmd = 'nice -n 19 nodejs ' . $sensor_path . '/xiaomihome.py ' . $url;
+        $cmd = 'nice -n 19 python ' . $sensor_path . '/xiaomihome.py ' . $url;
 
         log::add('xiaomihome', 'debug', 'Lancement démon xiaomihome : ' . $cmd);
 
