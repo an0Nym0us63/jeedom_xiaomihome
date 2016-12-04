@@ -94,7 +94,7 @@ class xiaomihome extends eqLogic {
         $return = array();
         $return['log'] = 'xiaomihome_node';
         $return['state'] = 'nok';
-        $pid = trim( shell_exec ('ps ax | grep "xiaomihome/node/xiaomihome.js" | grep -v "grep" | wc -l') );
+        $pid = trim( shell_exec ('ps ax | grep "xiaomihome.py" | grep -v "grep" | wc -l') );
         if ($pid != '' && $pid != '0') {
             $return['state'] = 'ok';
         }
@@ -112,8 +112,8 @@ class xiaomihome extends eqLogic {
 
         $url = network::getNetworkAccess('internal') . '/plugins/xiaomihome/core/api/xiaomihome.php?apikey=' . jeedom::getApiKey('xiaomihome');
         $log = log::convertLogLevel(log::getLogLevel('xiaomihome'));
-        $sensor_path = realpath(dirname(__FILE__) . '/../../node');
-        $cmd = 'nice -n 19 nodejs ' . $sensor_path . '/xiaomihome.js ' . $url;
+        $sensor_path = realpath(dirname(__FILE__) . '/../../resources');
+        $cmd = 'nice -n 19 nodejs ' . $sensor_path . '/xiaomihome.py ' . $url;
 
         log::add('xiaomihome', 'debug', 'Lancement démon xiaomihome : ' . $cmd);
 
@@ -143,38 +143,36 @@ class xiaomihome extends eqLogic {
     }
 
     public static function deamon_stop() {
-        exec('kill $(ps aux | grep "xiaomihome/node/xiaomihome.js" | awk \'{print $2}\')');
+        exec('kill $(ps aux | grep "xiaomihome.py" | awk \'{print $2}\')');
         log::add('xiaomihome', 'info', 'Arrêt du service xiaomihome');
         $deamon_info = self::deamon_info();
         if ($deamon_info['state'] == 'ok') {
             sleep(1);
-            exec('kill -9 $(ps aux | grep "xiaomihome/node/xiaomihome.js" | awk \'{print $2}\')');
+            exec('kill -9 $(ps aux | grep "xiaomihome.py" | awk \'{print $2}\')');
         }
         $deamon_info = self::deamon_info();
         if ($deamon_info['state'] == 'ok') {
             sleep(1);
-            exec('sudo kill -9 $(ps aux | grep "xiaomihome/node/xiaomihome.js" | awk \'{print $2}\')');
+            exec('sudo kill -9 $(ps aux | grep "xiaomihome.py" | awk \'{print $2}\')');
         }
     }
 
     public static function dependancy_info() {
         $return = array();
         $return['log'] = 'xiaomihome_dep';
-        $serialport = realpath(dirname(__FILE__) . '/../../node/node_modules/serialport');
-        $request = realpath(dirname(__FILE__) . '/../../node/node_modules/request');
-        $return['progress_file'] = '/tmp/xiaomihome_dep';
-        if (is_dir($serialport) && is_dir($request)) {
-            $return['state'] = 'ok';
-        } else {
-            $return['state'] = 'nok';
+        $cmd = "pip list | grep mihome";
+        exec($cmd, $output, $return_var);
+        $return['state'] = 'nok';
+        if (array_key_exists(0,$output)) {
+            if ($output[0] != "") {
+                $return['state'] = 'ok';
+            }
         }
         return $return;
     }
 
     public static function dependancy_install() {
-        log::add('xiaomihome','info','Installation des dépéndances nodejs');
-        $resource_path = realpath(dirname(__FILE__) . '/../../resources');
-        passthru('/bin/bash ' . $resource_path . '/nodejs.sh ' . $resource_path . ' > ' . log::getPathToLog('xiaomihome_dep') . ' 2>&1 &');
+        exec('sudo apt-get -y install python-pip libglib2.0-dev && sudo pip install mihome > ' . log::getPathToLog('xiaomihome_dep') . ' 2>&1 &');
     }
 
 }
