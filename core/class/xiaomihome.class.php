@@ -18,52 +18,14 @@
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class xiaomihome extends eqLogic {
-
-    public function checkCmdOk($_id, $_name, $_subtype, $_value) {
-        $xiaomihomeCmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($this->getId(),$_id);
-        if (!is_object($xiaomihomeCmd)) {
-            log::add('xiaomihome', 'debug', 'Création de la commande ' . $_id);
-            $xiaomihomeCmd = new xiaomihomeCmd();
-            $cmds = $this->getCmd();
-            $order = count($cmds);
-            $xiaomihomeCmd->setOrder($order);
-            $xiaomihomeCmd->setName(__($_name, __FILE__));
-            $xiaomihomeCmd->setEqLogic_id($this->id);
-            $xiaomihomeCmd->setEqType('xiaomihome');
-            $xiaomihomeCmd->setLogicalId($_id);
-            $xiaomihomeCmd->setType('info');
-            $xiaomihomeCmd->setSubType($_subtype);
-            $xiaomihomeCmd->setTemplate("mobile",'line' );
-            $xiaomihomeCmd->setTemplate("dashboard",'line' );
-            $xiaomihomeCmd->setDisplay("forceReturnLineAfter","1");
-            $xiaomihomeCmd->setConfiguration('value',$_value);
-            $xiaomihomeCmd->save();
-        }
-    }
-
-
-    public static function saveInclude($mode) {
-        config::save('include_mode', $mode,  'xiaomihome');
-        $state = 1;
-        if ($mode == 1) {
-            $state = 0;
-        }
-        event::add('xiaomihome::controller.data.controllerState',
-            array(
-                'state' => $state
-            )
-        );
-    }
-
-    public static function receiveId($sid, $short_id, $model) {
+    public static function receiveId($sid, $model) {
         $xiaomihome = self::byLogicalId($sid, 'xiaomihome');
         if (!is_object($xiaomihome)) {
             $xiaomihome = new xiaomihome();
             $xiaomihome->setEqType_name('xiaomihome');
             $xiaomihome->setLogicalId($sid);
-            $xiaomihome->setName($model . ' ' . $short_id);
+            $xiaomihome->setName($model . ' ' . $sid);
             $xiaomihome->setConfiguration('sid', $sid);
-            $xiaomihome->setConfiguration('short_id',$short_id);
             $xiaomihome->setConfiguration('model',$model);
             $xiaomihome->save();
         }

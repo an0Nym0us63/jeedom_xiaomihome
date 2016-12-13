@@ -5,11 +5,6 @@ if (!isConnect('admin')) {
 }
 sendVarToJS('eqType', 'xiaomihome');
 $eqLogics = eqLogic::byType('xiaomihome');
-$state = config::byKey('include_mode', 'xiaomihome');
-echo '<div id="div_inclusionAlert"></div>';
-if ($state == 1) {
-  echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous êtes en mode inclusion. Cliquez à nouveau sur le bouton d\'inclusion pour sortir de ce mode}}</div>';
-}
 ?>
 
 <div class="row row-overflow">
@@ -17,13 +12,7 @@ if ($state == 1) {
     <div class="bs-sidebar">
       <ul id="ul_eqLogic" class="nav nav-list bs-sidenav">
         <a class="btn btn-default eqLogicAction" style="width : 100%;margin-top : 5px;margin-bottom: 5px;" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter un équipement}}</a>
-        <?php
-        if ($state == 1) {
-          echo ' <a class="btn btn-success tooltips changeIncludeState" title="{{Inclure périphérique RF}}" data-state="0" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-in fa-rotate-90"></i> {{Arrêter inclusion}}</a>';
-        } else {
-          echo ' <a class="btn btn-default tooltips changeIncludeState" title="{{Inclure périphérique RF}}" data-state="1" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-in fa-rotate-90"></i> {{Mode inclusion}}</a>';
-        }
-        ?>
+
         <li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="{{Rechercher}}" style="width: 100%"/></li>
         <?php
         foreach ($eqLogics as $eqLogic) {
@@ -180,13 +169,6 @@ if ($state == 1) {
                 <label class="col-sm-3 control-label">{{Identifiant}}</label>
                 <div class="col-sm-3">
                   <input type="text" class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="sid"/>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="col-sm-3 control-label">{{Short ID}}</label>
-                <div class="col-sm-3">
-                  <input type="text" class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="short_id"/>
                 </div>
               </div>
 
