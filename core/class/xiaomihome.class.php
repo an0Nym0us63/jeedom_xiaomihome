@@ -53,89 +53,69 @@ class xiaomihome extends eqLogic {
     }
 
     public static function deamon_info() {
-        $return = array();
-        $return['log'] = 'xiaomihome_node';
-        $return['state'] = 'nok';
-        $pid = trim( shell_exec ('ps ax | grep "xiaomihome.py" | grep -v "grep" | wc -l') );
-        if ($pid != '' && $pid != '0') {
-            $return['state'] = 'ok';
-        }
-        $return['launchable'] = 'ok';
-        return $return;
+      $return = array();
+      $return['log'] = 'xiaomihome';
+      $return['launchable'] = 'ok';
+      $return['state'] = 'nok';
+      $cron = cron::byClassAndFunction('xiaomihome', 'daemon');
+      if (is_object($cron) && $cron->running()) {
+          $return['state'] = 'ok';
+      }
+      return $return;
     }
 
-    public static function deamon_start() {
-        self::deamon_stop();
-        $deamon_info = self::deamon_info();
-        if ($deamon_info['launchable'] != 'ok') {
-            throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
-        }
-        log::add('xiaomihome', 'info', 'Lancement du démon xiaomihome');
-
-        $url = network::getNetworkAccess('internal') . '/plugins/xiaomihome/core/api/xiaomihome.php?apikey=' . jeedom::getApiKey('xiaomihome');
-        $log = log::convertLogLevel(log::getLogLevel('xiaomihome'));
-        $sensor_path = realpath(dirname(__FILE__) . '/../../resources');
-        $cmd = 'nice -n 19 python ' . $sensor_path . '/xiaomihome.py ' . $url;
-
-        log::add('xiaomihome', 'debug', 'Lancement démon xiaomihome : ' . $cmd);
-
-        $result = exec('nohup ' . $cmd . ' >> ' . log::getPathToLog('xiaomihome_node') . ' 2>&1 &');
-        if (strpos(strtolower($result), 'error') !== false || strpos(strtolower($result), 'traceback') !== false) {
-            log::add('xiaomihome', 'error', $result);
-            return false;
-        }
-
-        $i = 0;
-        while ($i < 30) {
-            $deamon_info = self::deamon_info();
-            if ($deamon_info['state'] == 'ok') {
-                break;
-            }
-            sleep(1);
-            $i++;
-        }
-        if ($i >= 30) {
-            log::add('xiaomihome', 'error', 'Impossible de lancer le démon xiaomihome, vérifiez le port', 'unableStartDeamon');
-            return false;
-        }
-        message::removeAll('xiaomihome', 'unableStartDeamon');
-        log::add('xiaomihome', 'info', 'Démon xiaomihome lancé');
-        sleep(5);
-        return true;
-    }
+    public static function deamon_start($_debug = false) {
+		self::deamon_stop();
+		$deamon_info = self::deamon_info();
+		if ($deamon_info['launchable'] != 'ok') {
+			throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
+		}
+		$cron = cron::byClassAndFunction('xiaomihome', 'daemon');
+		if (!is_object($cron)) {
+			throw new Exception(__('Tache cron introuvable', __FILE__));
+		}
+		$cron->run();
+	}
 
     public static function deamon_stop() {
-        exec('kill $(ps aux | grep "xiaomihome.py" | awk \'{print $2}\')');
-        log::add('xiaomihome', 'info', 'Arrêt du service xiaomihome');
-        $deamon_info = self::deamon_info();
-        if ($deamon_info['state'] == 'ok') {
-            sleep(1);
-            exec('kill -9 $(ps aux | grep "xiaomihome.py" | awk \'{print $2}\')');
-        }
-        $deamon_info = self::deamon_info();
-        if ($deamon_info['state'] == 'ok') {
-            sleep(1);
-            exec('sudo kill -9 $(ps aux | grep "xiaomihome.py" | awk \'{print $2}\')');
-        }
-    }
+		$cron = cron::byClassAndFunction('xiaomihome', 'daemon');
+		if (!is_object($cron)) {
+			throw new Exception(__('Tache cron introuvable', __FILE__));
+		}
+		$cron->halt();
+	}
 
-    public static function dependancy_info() {
-        $return = array();
-        $return['log'] = 'xiaomihome_dep';
-        $cmd = "pip list | grep mihome";
-        exec($cmd, $output, $return_var);
-        $return['state'] = 'nok';
-        if (array_key_exists(0,$output)) {
-            if ($output[0] != "") {
-                $return['state'] = 'ok';
-            }
-        }
-        return $return;
+    public static function daemon() {
+    //Create a UDP socket
+    if(!($socksrv = socket_create(AF_INET, SOCK_DGRAM, 0))) {
+      $errorcode = socket_last_error();
+      $errormsg = socket_strerror($errorcode);
+      die(log::add('xiaomihome', 'error', 'Création du socket impossible ' . $errorcode . ' : ' . $errormsg));
     }
-
-    public static function dependancy_install() {
-        exec('sudo apt-get -y install python-pip libglib2.0-dev && sudo pip install mihome > ' . log::getPathToLog('xiaomihome_dep') . ' 2>&1 &');
+    if (!socket_set_option($socksrv, SOL_SOCKET, SO_REUSEADDR, 1)) {
+      log::add('xiaomihome', 'error', 'Impossible d appliquer les options au socket : ' . socket_strerror($errorcode));
     }
+    // Bind the source address
+    if( !socket_bind($socksrv, "224.0.0.50" , 4321) ) {
+      $errorcode = socket_last_error();
+      $errormsg = socket_strerror($errorcode);
+      die(log::add('xiaomihome', 'error', 'Connexion au socket impossible ' . $errorcode . ' : ' . $errormsg));
+    }
+    log::add('xiaomihome', 'debug', 'Daemon en écoute');
+    //Do some communication, this loop can handle multiple clients
+    while(1) {
+      //Receive some data
+      $r = socket_recvfrom($socksrv, $buf, 1024, 0, $remote_ip, $remote_port);
+/*      $body = json_decode($buf, true);
+      log::add('xiaomihome', 'debug', 'Recu ' . print_r($body, true));
+      xiaomihome::receiveId(init('sid'), init('model'));
+      foreach ($body as $key => $value) {
+          xiaomihome::receiveData(init('sid'), $key, $value);
+      }*/
+      log::add('xiaomihome', 'debug', 'Recu : ' . $buf . ' de ' . $remote_ip);
+    }
+    socket_close($socksrv);
+  }
 
 }
 
