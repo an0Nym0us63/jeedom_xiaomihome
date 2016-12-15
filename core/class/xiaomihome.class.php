@@ -119,6 +119,24 @@ class xiaomihome extends eqLogic {
         }
     }
 
+    public static function dependancy_info() {
+        $return = array();
+        $return['log'] = 'xiaomihome_dep';
+        $cmd = "pip list | grep mihome";
+        exec($cmd, $output, $return_var);
+        $return['state'] = 'nok';
+        if (array_key_exists(0,$output)) {
+            if ($output[0] != "") {
+                $return['state'] = 'ok';
+            }
+        }
+        return $return;
+    }
+
+    public static function dependancy_install() {
+        exec('sudo apt-get -y install python-pip libglib2.0-dev && sudo pip install mihome > ' . log::getPathToLog('xiaomihome_dep') . ' 2>&1 &');
+    }
+
 }
 
 class xiaomihomeCmd extends cmd {
