@@ -1,6 +1,6 @@
 import socket
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.bind(("224.0.0.50", 5000))
+s.bind(("224.0.0.50", 4321))
 while 1:
     data, addr = s.recvfrom(1024)
     print data
