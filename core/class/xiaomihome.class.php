@@ -53,50 +53,71 @@ class xiaomihome extends eqLogic {
     }
 
     public static function deamon_info() {
-      $return = array();
-      $return['log'] = 'xiaomihome';
-      $return['launchable'] = 'ok';
-      $return['state'] = 'nok';
-      $cron = cron::byClassAndFunction('xiaomihome', 'daemon');
-      if (is_object($cron) && $cron->running()) {
-          $return['state'] = 'ok';
-      }
-      return $return;
+        $return = array();
+        $return['log'] = 'xiaomihome_node';
+        $return['state'] = 'nok';
+        $pid = trim( shell_exec ('ps ax | grep "xiaomihome.py" | grep -v "grep" | wc -l') );
+        if ($pid != '' && $pid != '0') {
+            $return['state'] = 'ok';
+        }
+        $return['launchable'] = 'ok';
+        return $return;
     }
 
-    public static function deamon_start($_debug = false) {
-		self::deamon_stop();
-		$deamon_info = self::deamon_info();
-		if ($deamon_info['launchable'] != 'ok') {
-			throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
-		}
-		$cron = cron::byClassAndFunction('xiaomihome', 'daemon');
-		if (!is_object($cron)) {
-			throw new Exception(__('Tache cron introuvable', __FILE__));
-		}
-		$cron->run();
-	}
+    public static function deamon_start() {
+        self::deamon_stop();
+        $deamon_info = self::deamon_info();
+        if ($deamon_info['launchable'] != 'ok') {
+            throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
+        }
+        log::add('xiaomihome', 'info', 'Lancement du démon xiaomihome');
+
+        $url = network::getNetworkAccess('internal') . '/plugins/xiaomihome/core/api/xiaomihome.php?apikey=' . jeedom::getApiKey('xiaomihome');
+        $log = log::convertLogLevel(log::getLogLevel('xiaomihome'));
+        $sensor_path = realpath(dirname(__FILE__) . '/../../resources');
+        $cmd = 'nice -n 19 python ' . $sensor_path . '/xiaomihome.py ' . $url;
+
+        log::add('xiaomihome', 'debug', 'Lancement démon xiaomihome : ' . $cmd);
+
+        $result = exec('nohup ' . $cmd . ' >> ' . log::getPathToLog('xiaomihome_node') . ' 2>&1 &');
+        if (strpos(strtolower($result), 'error') !== false || strpos(strtolower($result), 'traceback') !== false) {
+            log::add('xiaomihome', 'error', $result);
+            return false;
+        }
+
+        $i = 0;
+        while ($i < 30) {
+            $deamon_info = self::deamon_info();
+            if ($deamon_info['state'] == 'ok') {
+                break;
+            }
+            sleep(1);
+            $i++;
+        }
+        if ($i >= 30) {
+            log::add('xiaomihome', 'error', 'Impossible de lancer le démon xiaomihome, vérifiez le port', 'unableStartDeamon');
+            return false;
+        }
+        message::removeAll('xiaomihome', 'unableStartDeamon');
+        log::add('xiaomihome', 'info', 'Démon xiaomihome lancé');
+        sleep(5);
+        return true;
+    }
 
     public static function deamon_stop() {
-		$cron = cron::byClassAndFunction('xiaomihome', 'daemon');
-		if (!is_object($cron)) {
-			throw new Exception(__('Tache cron introuvable', __FILE__));
-		}
-		$cron->halt();
-	}
-
-    public static function daemon() {
-    $socket = stream_socket_server("udp://224.0.0.50:4321", $errno, $errstr, STREAM_SERVER_BIND);
-    if (!$socket) {
-        die("$errstr ($errno)");
+        exec('kill $(ps aux | grep "xiaomihome.py" | awk \'{print $2}\')');
+        log::add('xiaomihome', 'info', 'Arrêt du service xiaomihome');
+        $deamon_info = self::deamon_info();
+        if ($deamon_info['state'] == 'ok') {
+            sleep(1);
+            exec('kill -9 $(ps aux | grep "xiaomihome.py" | awk \'{print $2}\')');
+        }
+        $deamon_info = self::deamon_info();
+        if ($deamon_info['state'] == 'ok') {
+            sleep(1);
+            exec('sudo kill -9 $(ps aux | grep "xiaomihome.py" | awk \'{print $2}\')');
+        }
     }
-
-    do {
-        $pkt = stream_socket_recvfrom($socket, 1, 0, $peer);
-        log::add('xiaomihome', 'debug', 'Listen ' . $peer);
-        //stream_socket_sendto($socket, date("D M j H:i:s Y\r\n"), 0, $peer);
-    } while ($pkt !== false);
-  }
 
 }
 
