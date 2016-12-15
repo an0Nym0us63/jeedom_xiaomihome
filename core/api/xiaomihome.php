@@ -24,9 +24,9 @@
 
  $body = json_decode(file_get_contents('php://input'), true);
  log::add('xiaomihome', 'debug', 'Recu ' . print_r($body, true));
- xiaomihome::receiveId(init('sid'), init('model'));
- foreach ($body as $key => $value) {
-     xiaomihome::receiveData(init('sid'), $key, $value);
+ xiaomihome::receiveId($body['sid'], $body['model']);
+ foreach ($body['data'] as $key => $value) {
+     xiaomihome::receiveData($body['sid'], $key, $value);
  }
 
  return true;
