@@ -86,35 +86,16 @@ class xiaomihome extends eqLogic {
 	}
 
     public static function daemon() {
-    //Create a UDP socket
-    if(!($socksrv = socket_create(AF_INET, SOCK_DGRAM, 0))) {
-      $errorcode = socket_last_error();
-      $errormsg = socket_strerror($errorcode);
-      die(log::add('xiaomihome', 'error', 'Création du socket impossible ' . $errorcode . ' : ' . $errormsg));
+    $socket = stream_socket_server("udp://224.0.0.50:4321", $errno, $errstr, STREAM_SERVER_BIND);
+    if (!$socket) {
+        die("$errstr ($errno)");
     }
-    if (!socket_set_option($socksrv, SOL_SOCKET, SO_REUSEADDR, 1)) {
-      log::add('xiaomihome', 'error', 'Impossible d appliquer les options au socket : ' . socket_strerror($errorcode));
-    }
-    // Bind the source address
-    if( !socket_bind($socksrv, "224.0.0.50" , 4321) ) {
-      $errorcode = socket_last_error();
-      $errormsg = socket_strerror($errorcode);
-      die(log::add('xiaomihome', 'error', 'Connexion au socket impossible ' . $errorcode . ' : ' . $errormsg));
-    }
-    log::add('xiaomihome', 'debug', 'Daemon en écoute');
-    //Do some communication, this loop can handle multiple clients
-    while(1) {
-      //Receive some data
-      $r = socket_recvfrom($socksrv, $buf, 65535, 0, $remote_ip, $remote_port);
-/*      $body = json_decode($buf, true);
-      log::add('xiaomihome', 'debug', 'Recu ' . print_r($body, true));
-      xiaomihome::receiveId(init('sid'), init('model'));
-      foreach ($body as $key => $value) {
-          xiaomihome::receiveData(init('sid'), $key, $value);
-      }*/
-      log::add('xiaomihome', 'debug', 'Recu : ' . print_r($buf,true) . ' de ' . $remote_ip);
-    }
-    socket_close($socksrv);
+
+    do {
+        $pkt = stream_socket_recvfrom($socket, 1, 0, $peer);
+        log::add('xiaomihome', 'debug', 'Listen ' . $peer);
+        //stream_socket_sendto($socket, date("D M j H:i:s Y\r\n"), 0, $peer);
+    } while ($pkt !== false);
   }
 
 }
