@@ -112,7 +112,7 @@ class xiaomihome extends eqLogic {
       foreach ($body as $key => $value) {
           xiaomihome::receiveData(init('sid'), $key, $value);
       }*/
-      log::add('xiaomihome', 'debug', 'Recu : ' . $buf . ' de ' . $remote_ip);
+      log::add('xiaomihome', 'debug', 'Recu : ' . print_r($buf,true) . ' de ' . $remote_ip);
     }
     socket_close($socksrv);
   }
