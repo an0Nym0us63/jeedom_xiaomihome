@@ -105,7 +105,7 @@ class xiaomihome extends eqLogic {
     //Do some communication, this loop can handle multiple clients
     while(1) {
       //Receive some data
-      $r = socket_recvfrom($socksrv, $buf, 1024, 0, $remote_ip, $remote_port);
+      $r = socket_recvfrom($socksrv, $buf, 65535, 0, $remote_ip, $remote_port);
 /*      $body = json_decode($buf, true);
       log::add('xiaomihome', 'debug', 'Recu ' . print_r($body, true));
       xiaomihome::receiveId(init('sid'), init('model'));
