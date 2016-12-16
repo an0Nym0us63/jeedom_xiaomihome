@@ -24,7 +24,7 @@
 
  $body = json_decode(file_get_contents('php://input'), true);
  if (init('sid') !== null && init('model') !== null) {
-     if (init('sid') == 'heartbeat') {
+     if (init('cmd') == 'heartbeat') {
          xiaomihome::receiveHeartbeat(init('sid'), init('model'), $body['ip']);
      } else {
          xiaomihome::receiveId(init('sid'), init('model'));
