@@ -34,6 +34,23 @@ class xiaomihome extends eqLogic {
         $xiaomihome->save();
     }
 
+    public static function receiveHeartbeat($sid, $model, $ip) {
+        $xiaomihome = self::byLogicalId($sid, 'xiaomihome');
+        if (!is_object($xiaomihome)) {
+            $xiaomihome = new xiaomihome();
+            $xiaomihome->setEqType_name('xiaomihome');
+            $xiaomihome->setLogicalId($sid);
+            $xiaomihome->setName($model . ' ' . $ip);
+            $xiaomihome->setConfiguration('sid', $sid);
+            $xiaomihome->setConfiguration('model',$model);
+            $xiaomihome->setConfiguration('ip',$ip);
+            $xiaomihome->setIsEnable(1);
+		    $xiaomihome->setIsVisible(0);
+        }
+        $xiaomihome->setConfiguration('lastCommunication',date('Y-m-d H:i:s'));
+        $xiaomihome->save();
+    }
+
     public static function receiveData($sid, $model, $key, $value) {
         $xiaomihome = self::byLogicalId($sid, 'xiaomihome');
         if (is_object($xiaomihome)) {
