@@ -1,0 +1,11 @@
+=== Configuration du plugin
+
+Le plugin ne comporte pas de configuration générale
+
+Il y a un service qui une fois démarré se connecte à la Xiaomi Gateway et récupère les informations
+
+Les équipements de la gateway sont créés automatiquement
+
+=== Configuration de la gateway
+
+Il est par contre nécessaire de paramétrer la gateway en mode développeur
