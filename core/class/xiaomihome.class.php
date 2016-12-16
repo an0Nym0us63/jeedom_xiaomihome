@@ -27,13 +27,46 @@ class xiaomihome extends eqLogic {
             $xiaomihome->setName($model . ' ' . $sid);
             $xiaomihome->setConfiguration('sid', $sid);
             $xiaomihome->setConfiguration('model',$model);
+            $xiaomihome->setIsEnable(1);
+		    $xiaomihome->setIsVisible(1);
             $xiaomihome->save();
         }
     }
 
-    public static function receiveData($sid, $key, $value) {
+    public static function receiveData($sid, $model, $key, $value) {
         $xiaomihome = self::byLogicalId($sid, 'xiaomihome');
         if (is_object($xiaomihome)) {
+            //default
+            $unite = '';
+            $type = 'string';
+            $icone = '';
+            $widget = 'line';
+            switch ($model) {
+                case 'motion':
+                    if ($value == 'motion') {
+                        $value = 1;
+                    } else {
+                        $value = 0;
+                    }
+                    $type = 'binary';
+                    $widget = 'presence';
+                    break;
+                case 'sensor_ht':
+                    $type = 'numeric';
+                    break;
+            }
+            switch ($key) {
+                case 'humidity':
+                    $value = $value / 100;
+                    $unite = '%';
+                    $icone = '<i class="fa fa-tint"></i>';
+                    break;
+                case 'temperature':
+                    $value = $value / 100;
+                    $unite = '°C';
+                    $icone = '<i class="fa fa-thermometer-empty"></i>';
+                    break;
+            }
             $xiaomihomeCmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($xiaomihome->getId(),$key);
             if (!is_object($xiaomihomeCmd)) {
                 log::add('xiaomihome', 'debug', 'Création de la commande ' . $key);
@@ -43,9 +76,12 @@ class xiaomihome extends eqLogic {
                 $xiaomihomeCmd->setEqType('xiaomihome');
                 $xiaomihomeCmd->setLogicalId($key);
                 $xiaomihomeCmd->setType('info');
-                $xiaomihomeCmd->setSubType('string');
-                $xiaomihomeCmd->setTemplate("mobile",'line' );
-                $xiaomihomeCmd->setTemplate("dashboard",'line' );
+                $xiaomihomeCmd->setSubType($type);
+                if ($icone != '') {
+                    $xiaomihomeCmd->setDisplay('icon', $icone);
+                }
+                $xiaomihomeCmd->setTemplate("mobile",$widget );
+                $xiaomihomeCmd->setTemplate("dashboard",$widget );
                 $xiaomihomeCmd->save();
             }
             $xiaomihome->checkAndUpdateCmd($key, $value);
