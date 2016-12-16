@@ -28,7 +28,7 @@
          xiaomihome::receiveHeartbeat(init('sid'), init('model'), $body['ip']);
      } else {
          xiaomihome::receiveId(init('sid'), init('model'));
-          log::add('xiaomihome', 'debug', 'Recu ' init('sid') . ' ' . init('model') . ' ' . print_r($body, true));
+          log::add('xiaomihome', 'debug', 'Recu ' . init('sid') . ' ' . init('model') . ' ' . print_r($body, true));
          if (is_array($body)) {
              foreach ($body as $key => $value) {
                  xiaomihome::receiveData(init('sid'), init('model'), $key, $value);
