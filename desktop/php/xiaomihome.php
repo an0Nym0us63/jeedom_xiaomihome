@@ -54,19 +54,11 @@ $eqLogics = eqLogic::byType('xiaomihome');
           <span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>Ajouter</center></span>
         </div>
         <?php
-        $dir = dirname(__FILE__) . '/../../doc/images/';
-        $files = scandir($dir);
         foreach ($eqLogics as $eqLogic) {
           $opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
           echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff ; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
           echo "<center>";
-          $test = 'node_' . $eqLogic->getConfiguration('icone') . '.png';
-          if (in_array($test, $files)) {
-            $path = 'node_' . $eqLogic->getConfiguration('icone');
-          } else {
-            $path = 'xiaomihome_icon';
-          }
-          echo '<img src="plugins/xiaomihome/doc/images/' . $path . '.png" height="105" width="95" />';
+          echo '<img src="plugins/xiaomihome/doc/images/xiaomihome_icon.png" height="105" width="95" />';
           echo "</center>";
           echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
           echo '</div>';
@@ -141,24 +133,18 @@ $eqLogics = eqLogic::byType('xiaomihome');
                   <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="battery_type" placeholder="Doit être indiqué sous la forme : 3x AA"/>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-3 control-label">{{Commentaire}}</label>
-                <div class="col-sm-3">
-                  <textarea class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="commentaire" ></textarea>
-                </div>
-              </div>
 
               <div class="form-group">
                 <label class="col-sm-3 control-label">{{Identifiant}}</label>
                 <div class="col-sm-3">
-                  <input type="text" class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="sid"/>
+                    <span class="eqLogicAttr" data-l1key="configuration" data-l2key="sid"></span>
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-sm-3 control-label">{{Modèle}}</label>
                 <div class="col-sm-3">
-                  <input type="text" class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="model"/>
+                    <span class="eqLogicAttr" data-l1key="configuration" data-l2key="model"></span>
                 </div>
               </div>
 
@@ -183,8 +169,7 @@ $eqLogics = eqLogic::byType('xiaomihome');
               <th style="width: 50px;">#</th>
               <th style="width: 150px;">{{Nom}}</th>
               <th style="width: 110px;">{{Type}}</th>
-              <th style="width: 110px;">{{Capteur}}</th>
-              <th style="width: 110px;">{{Commande}}</th>
+              <th style="width: 110px;">{{Identifiant}}</th>
               <th style="width: 100px;">{{Unité}}</th>
               <th style="width: 200px;">{{Paramètres}}</th>
               <th style="width: 100px;"></th>
@@ -207,11 +192,3 @@ $eqLogics = eqLogic::byType('xiaomihome');
 
 <?php include_file('desktop', 'xiaomihome', 'js', 'xiaomihome'); ?>
 <?php include_file('core', 'plugin.template', 'js'); ?>
-
-<script>
-$( "#sel_icon" ).change(function(){
-  var text = 'plugins/xiaomihome/doc/images/node_' + $("#sel_icon").val() + '.png';
-  //$("#icon_visu").attr('src',text);
-  document.icon_visu.src=text;
-});
-</script>

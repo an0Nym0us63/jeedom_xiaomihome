@@ -26,8 +26,8 @@ $eqLogics = xiaomihome::byType('xiaomihome');
 		<tr>
 			<th>{{Module}}</th>
 			<th>{{ID}}</th>
-			<th>{{Protocole}}</th>
-			<th>{{ID Proto.}}</th>
+			<th>{{Modèle}}</th>
+			<th>{{Identfiant}}</th>
 			<th>{{Statut}}</th>
 			<th>{{Batterie}}</th>
 			<th>{{Dernière communication}}</th>
@@ -39,8 +39,8 @@ $eqLogics = xiaomihome::byType('xiaomihome');
 foreach ($eqLogics as $eqLogic) {
 	echo '<tr><td><a href="' . $eqLogic->getLinkToConfiguration() . '" style="text-decoration: none;">' . $eqLogic->getHumanName(true) . '</a></td>';
 	echo '<td><span class="label label-info" style="font-size : 1em; cursor : default;">' . $eqLogic->getId() . '</span></td>';
-	echo '<td><span class="label label-info" style="font-size : 1em; cursor : default;">' . $eqLogic->getConfiguration('protocol') . '</span></td>';
-	echo '<td><span class="label label-info" style="font-size : 1em; cursor : default;">' . $eqLogic->getConfiguration('id') . '</span></td>';
+	echo '<td><span class="label label-info" style="font-size : 1em; cursor : default;">' . $eqLogic->getConfiguration('model') . '</span></td>';
+	echo '<td><span class="label label-info" style="font-size : 1em; cursor : default;">' . $eqLogic->getConfiguration('sid') . '</span></td>';
 	$status = '<span class="label label-success" style="font-size : 1em; cursor : default;">{{OK}}</span>';
 	if ($eqLogic->getStatus('state') == 'nok') {
 		$status = '<span class="label label-danger" style="font-size : 1em; cursor : default;">{{NOK}}</span>';

@@ -63,8 +63,6 @@ function addCmdToTable(_cmd) {
     tr += '<td>';
     tr += '<span class="cmdAttr" data-l1key="logicalId"></span>';
     tr += '</td>';
-    tr += '<td>';
-    tr += '</td>';
     tr += '<td>{{Unité}} :<br/>';
     tr += '<input class="cmdAttr form-control input-sm" data-l1key="unite" style="width : 90px;" placeholder="{{Unite}}">';
     tr += '</td><td>';
@@ -119,8 +117,6 @@ if (init(_cmd.type) == 'action') {
   tr += '</td>';
   tr += '<td>';
   tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="id">';
-  tr += '</td><td>';
-  tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="request">';
   tr += '</td><td>';
   tr += '</td><td>';
   tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isVisible" checked/>{{Afficher}}</label></span> ';

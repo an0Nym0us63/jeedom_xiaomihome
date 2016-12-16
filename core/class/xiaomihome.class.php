@@ -29,8 +29,9 @@ class xiaomihome extends eqLogic {
             $xiaomihome->setConfiguration('model',$model);
             $xiaomihome->setIsEnable(1);
 		    $xiaomihome->setIsVisible(1);
-            $xiaomihome->save();
         }
+        $xiaomihome->setConfiguration('lastCommunication',date('Y-m-d H:i:s'));
+        $xiaomihome->save();
     }
 
     public static function receiveData($sid, $model, $key, $value) {

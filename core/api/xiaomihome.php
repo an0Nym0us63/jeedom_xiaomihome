@@ -28,7 +28,7 @@
      xiaomihome::receiveId(init('sid'), init('model'));
      if (is_array($body)) {
          foreach ($body as $key => $value) {
-             xiaomihome::receiveData(init('sid'), $key, $value);
+             xiaomihome::receiveData(init('sid'), init('model'), $key, $value);
          }
      }
  }
