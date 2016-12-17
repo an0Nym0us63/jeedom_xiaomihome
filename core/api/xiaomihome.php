@@ -24,7 +24,7 @@ if (!jeedom::apiAccess(init('apikey'), 'xiaomihome')) {
 
 $body = json_decode(file_get_contents('php://input'), true);
 if (init('sid') !== null && init('model') !== null) {
-    if (init('cmd') == 'heartbeat') {
+    if (init('model') == 'gateway') {
         if (init('cmd') == 'heartbeat') {
             xiaomihome::receiveHeartbeat(init('sid'), init('model'), $body['ip']);
         } else {
