@@ -31,6 +31,6 @@ Le plugin ne prend pas en charge aujourd'hui les appareils Wifi Xiaomi suivants 
 
   * Capteur de qualité d'air : http://www.gearbest.com/living-appliances/pp_557543.html?vip=674363
 
-  * Multiprise : http://www.gearbest.com/electronics-gadgets/pp_310701.html?vip=674363
+  * Strip: http://www.gearbest.com/electronics-gadgets/pp_310701.html?vip=674363
 
-  * Controleur IR : http://www.gearbest.com/smart-home/pp_229556.html?vip=674363
+  * IR controler: http://www.gearbest.com/smart-home/pp_229556.html?vip=674363
