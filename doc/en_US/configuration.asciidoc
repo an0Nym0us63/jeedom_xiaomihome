@@ -1,4 +1,4 @@
-=== Configuration du plugin
+=== The plugin configuration
 
 Le plugin ne comporte pas de configuration générale
 
@@ -9,3 +9,11 @@ Les équipements de la gateway sont créés automatiquement
 === Configuration de la gateway
 
 Il est par contre nécessaire de paramétrer la gateway en mode développeur
+
+Pour cela, il faut ajouter la Gateway dans l'application Mi Home et être en China Mainland et Chinese (oui du coup des écrans peuvent contenir beaucoup de caractères illisibles à moins de maitriser le mandarin)
+
+Ensuite cliquer dessus pour la sélectionner, là cliquer sur les "..." et enfin "about"
+
+Là vous avez un numéro de version, cliquez dessus de facon répéter jusqu'à un message (oui en chinois ca aide pas :)) et 2 nouvelles options apparaissent
+
+Choisissez la première option et activer le bouton switch pour qu'il passe en vert, voilà le mode local est actif et votre gateway est accessible du réseau
