@@ -7,30 +7,30 @@ Liste des capteurs compatibles :
   * Gateway : http://www.gearbest.com/living-appliances/pp_344667.html?lkid=10269386
   (elle est nécessaire pour les capteurs Zigbee, il faut activer le mode développeur. En revanche aujourd'hui on ne peut pas se servir de l'anneau RGB ou de l'enceinte via le plugin (non dispo dans l'API))
 
-  * Capteur de porte : http://www.gearbest.com/smart-light-bulb/pp_257677.html?lkid=10269386
+  * Capteur de porte : http://www.gearbest.com/smart-light-bulb/pp_257677.html?lkid=10269970
 
-  * Capteur de mouvement : http://www.gearbest.com/smart-light-bulb/pp_257678.html?lkid=10269386
+  * Capteur de mouvement : http://www.gearbest.com/smart-light-bulb/pp_257678.html?lkid=10269971
 
-  * Température / Humidité : http://www.gearbest.com/living-appliances/pp_344665.html?lkid=10269386
+  * Température / Humidité : http://www.gearbest.com/living-appliances/pp_344665.html?lkid=10269957
 
-  * Interrupteur : http://www.gearbest.com/smart-light-bulb/pp_257679.html?lkid=10269386
+  * Interrupteur : http://www.gearbest.com/smart-light-bulb/pp_257679.html?lkid=10269959
 
-  * Cube : http://www.gearbest.com/living-appliances/pp_364494.html?lkid=10269386
+  * Cube : http://www.gearbest.com/living-appliances/pp_364494.html?lkid=10269960
   (fonctionnement en cours de vérification)
 
-  * Prise : http://www.gearbest.com/living-appliances/pp_344666.html?lkid=10269386
+  * Prise : http://www.gearbest.com/living-appliances/pp_344666.html?lkid=10269961
   (fonctionnement en cours de vérification)
 
 Le plugin ne prend pas en charge aujourd'hui les appareils Wifi Xiaomi suivants :
 
-  * Bandeau RGB : http://www.gearbest.com/smart-lighting/pp_424884.html?lkid=10269386
+  * Bandeau RGB : http://www.gearbest.com/smart-lighting/pp_424884.html?lkid=10269963
 
-  * Ampoule RGB : http://www.gearbest.com/smart-lighting/pp_361555.html?vip=672465
+  * Ampoule RGB : http://www.gearbest.com/smart-lighting/pp_361555.html?lkid=10269964
 
-  * Ampoule blanc : http://www.gearbest.com/smart-light-bulb/pp_278478.html?vip=674363
+  * Ampoule blanc : http://www.gearbest.com/smart-light-bulb/pp_278478.html?lkid=10269966
 
-  * Capteur de qualité d'air : http://www.gearbest.com/living-appliances/pp_557543.html?vip=674363
+  * Capteur de qualité d'air : http://www.gearbest.com/living-appliances/pp_557543.html?lkid=10269967
 
-  * Multiprise : http://www.gearbest.com/electronics-gadgets/pp_310701.html?vip=674363
+  * Multiprise : http://www.gearbest.com/electronics-gadgets/pp_310701.html?lkid=10269968
 
-  * Controleur IR : http://www.gearbest.com/smart-home/pp_229556.html?vip=674363
+  * Controleur IR : http://www.gearbest.com/smart-home/pp_229556.html?lkid=10269969
