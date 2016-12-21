@@ -69,6 +69,15 @@ class xiaomihome extends eqLogic {
                     $type = 'binary';
                     $widget = 'presence';
                     break;
+                case 'magnet':
+                    if ($value == 'close') {
+                        $value = 0;
+                    } else {
+                        $value = 1;
+                    }
+                    $type = 'binary';
+                    $widget = 'door';
+                    break;
                 case 'sensor_ht':
                     $type = 'numeric';
                     break;
