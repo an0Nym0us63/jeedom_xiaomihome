@@ -1,4 +1,4 @@
-=== Xiaomi Home, centrale domotique Zigbee et Wifi
+=== Xiaomi Home, central Zigbee home automation and Wifi
 
 La Xiaomi Home Gateway permet d'utiliser différents capteurs Zigbee Xiaomi.
 
