@@ -18,6 +18,12 @@
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class xiaomihome extends eqLogic {
+
+
+    public static function yeeAction($ip, $request, $option) {
+        $cmd = 'yee --ip=' . $ip . ' ' . $request;
+    }
+
     public static function receiveId($sid, $model) {
         $xiaomihome = self::byLogicalId($sid, 'xiaomihome');
         if (!is_object($xiaomihome)) {
@@ -185,7 +191,7 @@ class xiaomihome extends eqLogic {
     public static function dependancy_info() {
         $return = array();
         $return['log'] = 'xiaomihome_dep';
-        $cmd = "pip list | grep mihome";
+        $cmd = "pip list | grep yeelci";
         exec($cmd, $output, $return_var);
         $return['state'] = 'nok';
         if (array_key_exists(0,$output)) {
@@ -197,11 +203,23 @@ class xiaomihome extends eqLogic {
     }
 
     public static function dependancy_install() {
-        exec('sudo apt-get -y install python-pip libglib2.0-dev && sudo pip install mihome > ' . log::getPathToLog('xiaomihome_dep') . ' 2>&1 &');
+        exec('sudo apt-get -y install python-pip libglib2.0-dev && sudo pip install mihome && sudo pip install yeecli > ' . log::getPathToLog('xiaomihome_dep') . ' 2>&1 &');
     }
 
 }
 
 class xiaomihomeCmd extends cmd {
+    public function execute($_options = null) {
+        log::add('stock', 'debug', 'execute : ' . $this->getType() . ' ' . $this->getConfiguration('id') . ' ' . $this->getConfiguration('type') . ' ' . $this->getLogicalId());
+        if ($this->getType() == 'info') {
+            return $this->getConfiguration('value');
+        } else {
+            $eqLogic = $this->getEqLogic();
+            if ($eqLogic->getConfiguration('type') == 'yeelight') {
+                $eqLogic->yeeAction($eqLogic->getConfiguration('ip'),$this->getConfiguration('request'),$option);
+            } else {
 
+            }
+        }
+    }
 }
