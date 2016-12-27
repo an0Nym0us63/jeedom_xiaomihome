@@ -19,9 +19,90 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class xiaomihome extends eqLogic {
 
-
     public static function yeeAction($ip, $request, $option) {
         $cmd = 'yee --ip=' . $ip . ' ' . $request;
+    }
+
+    public static function yeeStatus($ip) {
+        $cmd = 'yee --ip=' . $ip . ' status';
+    }
+
+    public static function postUpdate() {
+        if ($xiaomihome->getConfiguration('type') == 'yeelight') {
+            $this->checkCmdOk('status', 'info', 'Statut', 'binary', '', '', '1', 'light', '');
+            $this->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '', '0', '', '<i class="fa fa-toggle-on"></i>');
+            $this->checkCmdOk('on', 'action', 'Allumer', 'action', 'other', 'on', 'status', '0', 'light', '<i class="fa fa-sun-o"></i>');
+            $this->checkCmdOk('off', 'action', 'Eteindre', 'action', 'other', 'off', 'status', '0', 'light', '<i class="fa fa-power-off"><\/i');
+
+            //brightness 0-100
+            $this->checkCmdOk('brightness', 'Luminosité', 'info', 'numeric', '', '', '0', 'line', '');
+            $this->checkCmdOk('brightnessAct', 'Définir Luminosité', 'action', 'slider', 'brightness', 'brightness', '1', '', '');
+
+            //RGB
+            $this->checkCmdOk('rgb', 'Couleur RGB', 'info', 'string', '', '', '0', 'line', '');
+            $this->checkCmdOk('rgbAct', 'Définir Couleur RGB', 'action', 'color', 'rgb', 'rgb', '1', '', '');
+
+            //HSV 0-253 + Saturation 0-100
+            $this->checkCmdOk('hsv', 'Couleur HSV', 'info', 'numérique', '', '', '0', 'line', '');
+            $this->checkCmdOk('hsvAct', 'Définir Couleur HSV', 'action', 'slider', 'hsv', 'hsv', '1', '', '');
+            $this->checkCmdOk('saturation', 'Couleur Intensité HSV', 'info', 'numérique', '', '', '0', 'line', '');
+            $this->checkCmdOk('saturationAct', 'Définir Intensité HSV', 'action', 'slider', 'saturation', 'saturation', '1', '', '');
+
+
+            //Température en Kelvin 1700-6500
+            $this->checkCmdOk('temperature', 'Température', 'info', 'numérique', '0', 'line', '');
+            $this->checkCmdOk('temperatureAct', 'Définir Température', 'action', 'slider', '1', '', '');
+        }
+    }
+
+    public function checkCmdOk($_id, $_name, $_type, $_subtype, $_request, $_setvalue,$_visible, $_template, $_icon) {
+        $xiaomihomeCmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($this->getId(),$_id);
+        if (!is_object($xiaomihomeCmd)) {
+            log::add('xiaomihome', 'debug', 'Création de la commande ' . $_id);
+            $xiaomihomeCmd = new xiaomihomeCmd();
+            $xiaomihomeCmd->setName(__($_name, __FILE__));
+            $xiaomihomeCmd->setEqLogic_id($this->id);
+            $xiaomihomeCmd->setEqType('xiaomihome');
+            $xiaomihomeCmd->setLogicalId($_id);
+            $xiaomihomeCmd->setType($_type);
+            $xiaomihomeCmd->setSubType($_subtype);
+            if ($_subtype == 'slider') {
+                switch ($_id) {
+                    case 'brightnessAct':
+                        $xiaomihomeCmd->setConfiguration('minValue', 0);
+                        $xiaomihomeCmd->setConfiguration('maxValue', 100);
+                        break;
+                    case 'hsvAct':
+                        $xiaomihomeCmd->setConfiguration('minValue', 0);
+                        $xiaomihomeCmd->setConfiguration('maxValue', 253);
+                        break;
+                    case 'saturationAct':
+                        $xiaomihomeCmd->setConfiguration('minValue', 0);
+                        $xiaomihomeCmd->setConfiguration('maxValue', 100);
+                        break;
+                    case 'temperatureAct':
+                        $xiaomihomeCmd->setConfiguration('minValue', 1700);
+                        $xiaomihomeCmd->setConfiguration('maxValue', 6500);
+                        break;
+                }
+            }
+            $xiaomihomeCmd->setIsVisible($_visible);
+            if ($_request != '') {
+                $xiaomihomeCmd->setConfiguration('request', $_request);
+            }
+            if ($_setvalue != '') {
+                $cmdlogic = xiaomihomeCmd::byEqLogicIdAndLogicalId($this->getId(),$_setvalue);
+                $xiaomihomeCmd->setValue($cmdlogic->getId());
+            }
+            if ($_template != '') {
+                $xiaomihomeCmd->setTemplate("mobile",$_template );
+                $xiaomihomeCmd->setTemplate("dashboard",$_template );
+            }
+            if ($_icon != '') {
+                $xiaomihomeCmd->setDisplay('icon', $_icon);
+            }
+            $xiaomihomeCmd->save();
+        }
     }
 
     public static function receiveId($sid, $model) {
@@ -36,6 +117,7 @@ class xiaomihome extends eqLogic {
             $xiaomihome->setIsEnable(1);
 		    $xiaomihome->setIsVisible(1);
         }
+        $xiaomihome->setConfiguration('type','aquara');
         $xiaomihome->setConfiguration('lastCommunication',date('Y-m-d H:i:s'));
         $xiaomihome->save();
     }
@@ -53,6 +135,7 @@ class xiaomihome extends eqLogic {
             $xiaomihome->setIsEnable(1);
 		    $xiaomihome->setIsVisible(0);
         }
+        $xiaomihome->setConfiguration('type','aquara');
         $xiaomihome->setConfiguration('lastCommunication',date('Y-m-d H:i:s'));
         $xiaomihome->save();
     }
@@ -210,7 +293,7 @@ class xiaomihome extends eqLogic {
 
 class xiaomihomeCmd extends cmd {
     public function execute($_options = null) {
-        log::add('stock', 'debug', 'execute : ' . $this->getType() . ' ' . $this->getConfiguration('id') . ' ' . $this->getConfiguration('type') . ' ' . $this->getLogicalId());
+        log::add('xiaomihome', 'debug', 'execute : ' . $this->getType() . ' ' . $this->getConfiguration('id') . ' ' . $this->getConfiguration('type') . ' ' . $this->getLogicalId());
         if ($this->getType() == 'info') {
             return $this->getConfiguration('value');
         } else {
