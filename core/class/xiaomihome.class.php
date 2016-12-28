@@ -33,7 +33,7 @@ class xiaomihome extends eqLogic {
         $cmd = 'yee --ip=' . $ip . ' status';
     }
 
-    public static function postUpdate() {
+    /*public static function postUpdate() {
         if ($this->getConfiguration('type') == 'yeelight') {
             $this->checkCmdOk('status', 'info', 'Statut', 'binary', '', '', '1', 'light', '');
             $this->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '', '0', '', '<i class="fa fa-toggle-on"></i>');
@@ -59,7 +59,7 @@ class xiaomihome extends eqLogic {
             $this->checkCmdOk('temperature', 'Température', 'info', 'numérique', '0', 'line', '');
             $this->checkCmdOk('temperatureAct', 'Définir Température', 'action', 'slider', '1', '', '');
         }
-    }
+    }*/
 
     public function checkCmdOk($_id, $_name, $_type, $_subtype, $_request, $_setvalue,$_visible, $_template, $_icon) {
         $xiaomihomeCmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($this->getId(),$_id);
