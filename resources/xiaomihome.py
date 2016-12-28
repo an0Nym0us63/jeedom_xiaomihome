@@ -18,18 +18,24 @@ cb2 = lambda g, d: push_data2(g, d)
 
 def xiaomiconnector(cb) :
     connector = XiaomiConnector(data_callback=cb)
-    while True:
-        connector.check_incoming()
-        time.sleep(0.05)
+    try:
+        while True:
+            connector.check_incoming()
+            time.sleep(0.05)
+    except:
+        logging.debug('Error Xiaomi')
 
 def yeelightconnector(cb2) :
     yeelight = YeelightConnector(data_callback=cb2)
-    while True:
-        yeelight.check_incoming()
-        time.sleep(0.05)
+    try:
+        while True:
+            yeelight.check_incoming()
+            time.sleep(0.05)
+    except:
+        logging.debug('Error Yeelight')
 
 if __name__ == '__main__':
-    thread.start_new_thread( xiaomiconnector, (cb))
+    thread.start_new_thread( xiaomiconnector, (cb,))
     logging.debug('Xiaomi Thread Launched')
-    thread.start_new_thread( yeelightconnector, (cb2))
+    thread.start_new_thread( yeelightconnector, (cb2,))
     logging.debug('Yeelight Thread Launched')
