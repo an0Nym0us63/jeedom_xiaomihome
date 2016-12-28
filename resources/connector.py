@@ -50,7 +50,7 @@ class XiaomiConnector:
             raise
             print("Can't handle message %r (%r)" % (data, e))
 
-    def handle_incoming_data(self, payload):
+    def handle_incoming_data(self, payload, addr):
         """Handle an incoming payload, save related data if needed,
         and use the callback if there is one.
         """
@@ -58,7 +58,7 @@ class XiaomiConnector:
             cmd = payload["cmd"]
             if cmd in ["heartbeat", "report", "read_ack"]:
                 if self.data_callback is not None:
-                    self.data_callback(payload["gateway"],
+                    self.data_callback(addr,
                                        payload["model"],
                                        payload["sid"],
                                        payload["short_id"],
