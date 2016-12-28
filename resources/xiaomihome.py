@@ -22,14 +22,14 @@ def xiaomiconnector(cb) :
         connector.check_incoming()
         time.sleep(0.05)
 
-def yeelightconnector(cb) :
+def yeelightconnector(cb2) :
     yeelight = YeelightConnector(data_callback=cb2)
     while True:
         yeelight.check_incoming()
         time.sleep(0.05)
 
 if __name__ == '__main__':
-    thread.start_new_thread( xiaomiconnector, (cb,))
+    thread.start_new_thread( xiaomiconnector, (cb))
     logging.debug('Xiaomi Thread Launched')
-    thread.start_new_thread( yeelightconnector, (cb2,))
+    thread.start_new_thread( yeelightconnector, (cb2))
     logging.debug('Yeelight Thread Launched')
