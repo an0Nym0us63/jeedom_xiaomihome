@@ -22,6 +22,10 @@ if (!jeedom::apiAccess(init('apikey'), 'xiaomihome')) {
     die();
 }
 
+if (init('type') == 'yeelight') {
+    log::add('xiaomihome', 'debug', 'Yeelight ' . init('yeelight'));
+}
+
 $body = json_decode(file_get_contents('php://input'), true);
 if (init('sid') !== null && init('model') !== null) {
     if (init('model') == 'gateway') {

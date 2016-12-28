@@ -58,7 +58,7 @@ class XiaomiConnector:
             cmd = payload["cmd"]
             if cmd in ["heartbeat", "report", "read_ack"]:
                 if self.data_callback is not None:
-                    self.data_callback(addr,
+                    self.data_callback(addr[0],
                                        payload["model"],
                                        payload["sid"],
                                        payload["short_id"],
