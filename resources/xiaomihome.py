@@ -2,6 +2,7 @@ import logging
 import sys
 import time
 from connector import *
+from yeelight import *
 import requests
 
 def push_data(gateway, model, sid, short_id, cmd, data):
