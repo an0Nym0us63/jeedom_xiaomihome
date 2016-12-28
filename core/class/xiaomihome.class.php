@@ -119,12 +119,12 @@ class xiaomihome extends eqLogic {
             $xiaomihome->setLogicalId($sid);
             $xiaomihome->setName($model . ' ' . $sid);
             $xiaomihome->setConfiguration('sid', $sid);
-            $xiaomihome->setConfiguration('model',$model);
-            $xiaomihome->setConfiguration('short_id',$short_id);
-            $xiaomihome->setConfiguration('gateway',$gateway);
             $xiaomihome->setIsEnable(1);
 		    $xiaomihome->setIsVisible(1);
         }
+        $xiaomihome->setConfiguration('model',$model);
+        $xiaomihome->setConfiguration('short_id',$short_id);
+        $xiaomihome->setConfiguration('gateway',$gateway);
         $xiaomihome->setConfiguration('type','aquara');
         $xiaomihome->setConfiguration('lastCommunication',date('Y-m-d H:i:s'));
         $xiaomihome->save();
