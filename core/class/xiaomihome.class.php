@@ -309,7 +309,7 @@ class xiaomihome extends eqLogic {
     public static function dependancy_info() {
         $return = array();
         $return['log'] = 'xiaomihome_dep';
-        $cmd = "pip list | grep yeelci";
+        $cmd = "pip list | grep yeecli";
         exec($cmd, $output, $return_var);
         $return['state'] = 'nok';
         if (array_key_exists(0,$output)) {
