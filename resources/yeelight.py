@@ -49,7 +49,7 @@ class YeelightConnector:
             raise
             print("Can't handle message %r (%r)" % (data, e))
 
-    def handle_incoming_data(self, payload, addr):
+    def handle_incoming_data(self, data, addr):
         """Handle an incoming payload, save related data if needed,
         and use the callback if there is one.
         """
