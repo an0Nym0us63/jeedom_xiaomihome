@@ -56,14 +56,11 @@ class XiaomiConnector:
         """
         if isinstance(payload.get('data', None), basestring):
             cmd = payload["cmd"]
-            if cmd in ["heartbeat", "report", "read_ack"]:
+            if cmd in ["heartbeat", "report"]:
                 if self.data_callback is not None:
                     self.data_callback(addr[0],
-                                       payload["model"],
-                                       payload["sid"],
-                                       payload["short_id"],
-                                       payload["cmd"],
-                                       json.loads(payload["data"]))
+                                       'aquara',
+                                       payload)
 
             if cmd == "read_ack" and payload["sid"] not in self.nodes:
                 self.nodes[payload["sid"]] = dict(model=payload["model"])

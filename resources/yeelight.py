@@ -43,7 +43,9 @@ class YeelightConnector:
         data, addr = self.socket.recvfrom(self.SOCKET_BUFSIZE)
         try:
             print(data)
-            self.handle_incoming_data(data, addr)
+            self.handle_incoming_data(addr[0],
+                                      'yeelight',
+                                      data)
 
         except Exception as e:
             raise

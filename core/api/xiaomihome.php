@@ -27,19 +27,19 @@ if (init('type') == 'yeelight') {
 }
 
 $body = json_decode(file_get_contents('php://input'), true);
-if (init('sid') !== null && init('model') !== null) {
-    if (init('model') == 'gateway') {
-        if (init('cmd') == 'heartbeat') {
-            xiaomihome::receiveHeartbeat(init('sid'), init('model'), $body['ip']);
+if ($body['sid'] !== null && $body['model'] !== null) {
+    if ($body['model'] == 'gateway') {
+        if ($body['cmd'] == 'heartbeat') {
+            xiaomihome::receiveHeartbeat($body['sid'], $body['model'], $body['ip'], init('gateway'));
         } else {
-            xiaomihome::receiveId(init('sid'), init('model'), init('gateway'), init('short_id'));
+            xiaomihome::receiveId($body['sid'], $body['model'], init('gateway'), $body['short_id']);
         }
     } else {
-        xiaomihome::receiveId(init('sid'), init('model'), init('gateway'), init('short_id'));
-        log::add('xiaomihome', 'debug', 'Recu ' . init('sid') . ' ' . init('model') . ' ' . print_r($body, true));
-        if (is_array($body)) {
-            foreach ($body as $key => $value) {
-                xiaomihome::receiveData(init('sid'), init('model'), $key, $value);
+        xiaomihome::receiveId($body['sid'], $body['model'], init('gateway'), $body['short_id']);
+        //log::add('xiaomihome', 'debug', 'Recu ' . $body['sid'] . ' ' . $body['model'] . ' ' . print_r($body, true));
+        if (is_array($body['data'])) {
+            foreach ($body['data'] as $key => $value) {
+                xiaomihome::receiveData($body['sid'], $body['model'], $key, $value);
             }
         }
     }

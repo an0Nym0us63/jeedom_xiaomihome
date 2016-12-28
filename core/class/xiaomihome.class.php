@@ -130,7 +130,7 @@ class xiaomihome extends eqLogic {
         $xiaomihome->save();
     }
 
-    public static function receiveHeartbeat($sid, $model, $ip) {
+    public static function receiveHeartbeat($sid, $model, $ip, $gateway) {
         $xiaomihome = self::byLogicalId($sid, 'xiaomihome');
         if (!is_object($xiaomihome)) {
             $xiaomihome = new xiaomihome();
@@ -143,6 +143,7 @@ class xiaomihome extends eqLogic {
             $xiaomihome->setIsEnable(1);
 		    $xiaomihome->setIsVisible(0);
         }
+        $xiaomihome->setConfiguration('gateway',$gateway);
         $xiaomihome->setConfiguration('type','aquara');
         $xiaomihome->setConfiguration('lastCommunication',date('Y-m-d H:i:s'));
         $xiaomihome->save();
