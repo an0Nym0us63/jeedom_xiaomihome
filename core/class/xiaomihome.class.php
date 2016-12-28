@@ -20,7 +20,13 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 class xiaomihome extends eqLogic {
 
     public static function yeeAction($ip, $request, $option) {
-        $cmd = 'yee --ip=' . $ip . ' ' . $request;
+        $cmd = 'yee --ip=' . $ip . ' ' . $request . ' ' . $option;
+    }
+
+    public static function aquaraAction($request) {
+        //{"cmd":"write","model":"ctrl_neutral1","sid":"158d0000123456","short_id":4343,"data":"{\"channel_0\":\"on\",\"key\":\"3EB43E37C20AFF4C5872CC0D04D81314\"}" }
+        $cmd = '{"cmd":"write","model":"' . $this->getConfiguration('model') . '","sid":"' . $this->getConfiguration('sid') . '","short_id":' . $this->getConfiguration('short_id') . ',"data":"{' . $request . ',\"key\":\"3EB43E37C20AFF4C5872CC0D04D81314\"}" }';
+        $gateway = $this->getConfiguration('gateway');
     }
 
     public static function yeeStatus($ip) {
@@ -46,7 +52,7 @@ class xiaomihome extends eqLogic {
             $this->checkCmdOk('hsv', 'Couleur HSV', 'info', 'numérique', '', '', '0', 'line', '');
             $this->checkCmdOk('hsvAct', 'Définir Couleur HSV', 'action', 'slider', 'hsv', 'hsv', '1', '', '');
             $this->checkCmdOk('saturation', 'Couleur Intensité HSV', 'info', 'numérique', '', '', '0', 'line', '');
-            $this->checkCmdOk('saturationAct', 'Définir Intensité HSV', 'action', 'slider', 'saturation', 'saturation', '1', '', '');
+            $this->checkCmdOk('saturationAct', 'Définir Intensité HSV', 'action', 'slider', 'hsv', 'saturation', '1', '', '');
 
 
             //Température en Kelvin 1700-6500
@@ -105,7 +111,7 @@ class xiaomihome extends eqLogic {
         }
     }
 
-    public static function receiveId($sid, $model) {
+    public static function receiveId($sid, $model, $short_id, $gateway) {
         $xiaomihome = self::byLogicalId($sid, 'xiaomihome');
         if (!is_object($xiaomihome)) {
             $xiaomihome = new xiaomihome();
@@ -114,6 +120,8 @@ class xiaomihome extends eqLogic {
             $xiaomihome->setName($model . ' ' . $sid);
             $xiaomihome->setConfiguration('sid', $sid);
             $xiaomihome->setConfiguration('model',$model);
+            $xiaomihome->setConfiguration('short_id',$short_id);
+            $xiaomihome->setConfiguration('gateway',$gateway);
             $xiaomihome->setIsEnable(1);
 		    $xiaomihome->setIsVisible(1);
         }
@@ -157,6 +165,33 @@ class xiaomihome extends eqLogic {
                     }
                     $type = 'binary';
                     $widget = 'presence';
+                    break;
+                case 'plug':
+                    if ($value == 'on') {
+                        $value = 1;
+                    } else {
+                        $value = 0;
+                    }
+                    $type = 'binary';
+                    $widget = 'light';
+                    break;
+                case 'ctrl_neutral1':
+                    if ($value == 'on') {
+                        $value = 1;
+                    } else {
+                        $value = 0;
+                    }
+                    $type = 'binary';
+                    $widget = 'light';
+                    break;
+                case 'ctrl_neutral2':
+                    if ($value == 'on') {
+                        $value = 1;
+                    } else {
+                        $value = 0;
+                    }
+                    $type = 'binary';
+                    $widget = 'light';
                     break;
                 case 'magnet':
                     if ($value == 'close') {
@@ -299,6 +334,27 @@ class xiaomihomeCmd extends cmd {
         } else {
             $eqLogic = $this->getEqLogic();
             if ($eqLogic->getConfiguration('type') == 'yeelight') {
+                switch ($this->getSubType()) {
+                    case 'slider':
+                        $option = $_options['slider'];
+                        if ($this->getLogicalId() == 'hsvAct') {
+                            $cplmtcmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'saturation');
+                            $option = $option . ' ' . $cplmtcmd->execute();
+                        }
+                        if ($this->getLogicalId() == 'saturationAct') {
+                            $cplmtcmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'hsv');
+                            $option = $cplmtcmd->execute() . ' ' . $option;
+                        }
+                        break;
+                    case 'color':
+                        $option = $_options['color'];
+                        break;
+                    case 'message':
+                        $option = $_options['title'] . ' ' . $_options['message'];
+                        break;
+                    default :
+                        $option = '';
+                  }
                 $eqLogic->yeeAction($eqLogic->getConfiguration('ip'),$this->getConfiguration('request'),$option);
             } else {
 
