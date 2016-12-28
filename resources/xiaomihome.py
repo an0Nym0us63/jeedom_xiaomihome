@@ -3,6 +3,7 @@ import sys
 import time
 from connector import *
 from yeelight import *
+import thread
 import requests
 
 def push_data(gateway, model, sid, short_id, cmd, data):
