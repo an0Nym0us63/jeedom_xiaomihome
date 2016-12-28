@@ -1,5 +1,5 @@
 [panel,primary]
-.Quel type de gateway Xiaomi est supporté ?
+. What type of Xiaomi gateway is supported?
 --
 La "Aquara" pour le Zigbee qu'il faut bien paramétrer en mode développeur pour y accéder localement
 --
