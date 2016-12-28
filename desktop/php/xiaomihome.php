@@ -135,9 +135,23 @@ $eqLogics = eqLogic::byType('xiaomihome');
               </div>
 
               <div class="form-group">
+                <label class="col-sm-3 control-label">{{Gateway}}</label>
+                <div class="col-sm-3">
+                    <span class="eqLogicAttr" data-l1key="configuration" data-l2key="gateway"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
                 <label class="col-sm-3 control-label">{{Identifiant}}</label>
                 <div class="col-sm-3">
                     <span class="eqLogicAttr" data-l1key="configuration" data-l2key="sid"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-3 control-label">{{Identifiant court}}</label>
+                <div class="col-sm-3">
+                    <span class="eqLogicAttr" data-l1key="configuration" data-l2key="short_id"></span>
                 </div>
               </div>
 

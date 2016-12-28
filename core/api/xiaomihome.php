@@ -28,10 +28,10 @@ if (init('sid') !== null && init('model') !== null) {
         if (init('cmd') == 'heartbeat') {
             xiaomihome::receiveHeartbeat(init('sid'), init('model'), $body['ip']);
         } else {
-            xiaomihome::receiveId(init('sid'), init('model'));
+            xiaomihome::receiveId(init('sid'), init('model'), init('gateway'), init('short_id'));
         }
     } else {
-        xiaomihome::receiveId(init('sid'), init('model'));
+        xiaomihome::receiveId(init('sid'), init('model'), init('gateway'), init('short_id'));
         log::add('xiaomihome', 'debug', 'Recu ' . init('sid') . ' ' . init('model') . ' ' . print_r($body, true));
         if (is_array($body)) {
             foreach ($body as $key => $value) {

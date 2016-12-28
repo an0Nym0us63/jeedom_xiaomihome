@@ -111,7 +111,7 @@ class xiaomihome extends eqLogic {
         }
     }
 
-    public static function receiveId($sid, $model, $short_id, $gateway) {
+    public static function receiveId($sid, $model, $gateway, $short_id) {
         $xiaomihome = self::byLogicalId($sid, 'xiaomihome');
         if (!is_object($xiaomihome)) {
             $xiaomihome = new xiaomihome();
