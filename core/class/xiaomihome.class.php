@@ -321,7 +321,7 @@ class xiaomihome extends eqLogic {
     }
 
     public static function dependancy_install() {
-        exec('sudo apt-get -y install python-pip libglib2.0-dev && sudo pip install mihome && sudo pip install yeecli > ' . log::getPathToLog('xiaomihome_dep') . ' 2>&1 &');
+        exec('sudo apt-get -y install python-pip && sudo pip install yeecli > ' . log::getPathToLog('xiaomihome_dep') . ' 2>&1 &');
     }
 
 }
