@@ -34,7 +34,7 @@ class xiaomihome extends eqLogic {
     }
 
     public static function postUpdate() {
-        if ($xiaomihome->getConfiguration('type') == 'yeelight') {
+        if ($this->getConfiguration('type') == 'yeelight') {
             $this->checkCmdOk('status', 'info', 'Statut', 'binary', '', '', '1', 'light', '');
             $this->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '', '0', '', '<i class="fa fa-toggle-on"></i>');
             $this->checkCmdOk('on', 'action', 'Allumer', 'action', 'other', 'on', 'status', '0', 'light', '<i class="fa fa-sun-o"></i>');
