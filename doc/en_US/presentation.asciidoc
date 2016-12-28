@@ -1,6 +1,6 @@
 === Xiaomi Home, central Zigbee home automation and Wifi
 
-La Xiaomi Home Gateway permet d'utiliser différents capteurs Zigbee Xiaomi.
+Xiaomi Home Gateway allows to use various sensors Zigbee Xiaomi.
 
 Liste des capteurs compatibles :
 

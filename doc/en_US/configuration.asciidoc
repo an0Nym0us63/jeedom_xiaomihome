@@ -1,6 +1,6 @@
 === The plugin configuration
 
-Le plugin ne comporte pas de configuration générale
+The plugin does not have general configuration.
 
 Il y a un service qui une fois démarré se connecte à la Xiaomi Gateway et récupère les informations
 
