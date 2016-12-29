@@ -24,6 +24,8 @@ if (!jeedom::apiAccess(init('apikey'), 'xiaomihome')) {
 
 $body = json_decode(file_get_contents('php://input'), true);
 log::add('xiaomihome', 'debug', 'Recu ' . init('type') . ' de ' . init('gateway') . ' : ' . print_r($body, true));
+log::add('xiaomihome', 'debug', 'Body non decode ' . file_get_contents('php://input'));
+
 if (init('type') == 'aquara') {
     if ($body['sid'] !== null && $body['model'] !== null) {
         if ($body['model'] == 'gateway') {
@@ -42,15 +44,14 @@ if (init('type') == 'aquara') {
             }
         }
     }
+
+    if ($body['token'] != config::byKey('token','xiaomihome')) {
+        config::save('token', $body['token'],  'xiaomihome');
+    }
+
 } else {
     xiaomihome::receiveYeelight(init('gateway'), $body['id'], $body['model'], $body['fw_ver'], $body['power'], $body['color_mode'], $body['rgb'], $body['bright'], $body['hue'], $body['sat'], $body['ct']);
 }
-
-
-if ($body['token'] != config::byKey('token','xiaomihome')) {
-    config::save('token', $body['token'],  'xiaomihome');
-}
-
 
 return true;
 
