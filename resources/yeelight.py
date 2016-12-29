@@ -46,9 +46,10 @@ class YeelightConnector:
         data, addr = self.socket.recvfrom(self.SOCKET_BUFSIZE)
         try:
             for line in self.StringIO.StringIO(data):
-                args = line.split(': ')
-                if args[1] in self.toReport:
-                    print(line)
+                if ': ' in args:
+                    args = line.split(': ')
+                    if args[1] in self.toReport:
+                        print(line)
 
             self.handle_incoming_data(addr[0],
                                       data)
