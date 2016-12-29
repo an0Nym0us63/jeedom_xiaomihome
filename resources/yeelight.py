@@ -3,6 +3,7 @@ import socket
 import binascii
 import struct
 import json
+import cStringIO
 
 
 class YeelightConnector:
@@ -13,6 +14,10 @@ class YeelightConnector:
 
     MULTICAST_ADDRESS = '239.255.255.250'
     SOCKET_BUFSIZE = 1024
+
+    StringIO = cStringIO
+
+    toReport = ['id', 'model', 'fw_ver', 'power', 'bright', 'color_mode', 'ct', 'rgb', 'hue', 'sat']
 
     def __init__(self, data_callback=None, auto_discover=True):
         """Initialize the connector."""
@@ -40,9 +45,12 @@ class YeelightConnector:
         """Check incoming data."""
         data, addr = self.socket.recvfrom(self.SOCKET_BUFSIZE)
         try:
-            print(data)
+            for line in self.StringIO.StringIO(data):
+                args = line.split(': ')
+                if args[1] in self.toReport:
+                    print(line)
+
             self.handle_incoming_data(addr[0],
-                                      'yeelight',
                                       data)
 
         except Exception as e:
