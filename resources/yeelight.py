@@ -45,16 +45,17 @@ class YeelightConnector:
         """Check incoming data."""
         data, addr = self.socket.recvfrom(self.SOCKET_BUFSIZE)
         try:
-            print(data)
+            #print(data)
+            report = dict()
             for line in self.StringIO.StringIO(data):
-                print('line' + line)
+                #print('line' + line)
                 if ': ' in line:
                     args = line.split(': ')
-                    print('args' + args[1])
-                    if args[1] in self.toReport:
+                    if args[0] in self.toReport:
                         print(line)
+                        report[args[0]] = args[1]
 
-            self.handle_incoming_data(data, addr)
+            self.handle_incoming_data(json.dumps(report), addr)
 
         except Exception as e:
             raise
