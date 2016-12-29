@@ -47,7 +47,8 @@ class YeelightConnector:
         try:
             #print(data)
             report = dict()
-            for line in self.StringIO.StringIO(data):
+            lines = data.split('\n')
+            for line in lines:
                 #print('line' + line)
                 if ': ' in line:
                     args = line.split(': ')
