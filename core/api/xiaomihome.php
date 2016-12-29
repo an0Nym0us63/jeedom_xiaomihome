@@ -31,7 +31,7 @@ log::add('xiaomihome', 'debug', 'Recu ' . init('type') . ' de ' . init('gateway'
 if ($body['sid'] !== null && $body['model'] !== null) {
     if ($body['model'] == 'gateway') {
         if ($body['cmd'] == 'heartbeat') {
-            xiaomihome::receiveHeartbeat($body['sid'], $body['model'], $body['ip'], init('gateway'));
+            xiaomihome::receiveHeartbeat($body['sid'], $body['model'], init('gateway'), init('gateway'), $body['short_id']);
         } else {
             xiaomihome::receiveId($body['sid'], $body['model'], init('gateway'), $body['short_id']);
         }
@@ -44,6 +44,10 @@ if ($body['sid'] !== null && $body['model'] !== null) {
             }
         }
     }
+}
+
+if ($body['token'] != config::byKey('token','xiaomihome')) {
+    config::save('token', $body['token'],  'xiaomihome');
 }
 
 
