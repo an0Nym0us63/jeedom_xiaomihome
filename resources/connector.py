@@ -20,8 +20,6 @@ class XiaomiConnector:
         self.last_tokens = dict()
         self.socket = self._prepare_socket()
 
-        self.nodes = dict()
-
     def _prepare_socket(self):
         sock = socket.socket(socket.AF_INET,  # Internet
                              socket.SOCK_DGRAM)  # UDP
@@ -43,7 +41,7 @@ class XiaomiConnector:
         data, addr = self.socket.recvfrom(self.SOCKET_BUFSIZE)
         try:
             payload = json.loads(data.decode("utf-8"))
-            print(payload)
+            print(data)
             self.handle_incoming_data(payload, addr)
 
         except Exception as e:
@@ -61,39 +59,3 @@ class XiaomiConnector:
                     self.data_callback(addr[0],
                                        'aquara',
                                        payload)
-
-            if cmd == "read_ack" and payload["sid"] not in self.nodes:
-                self.nodes[payload["sid"]] = dict(model=payload["model"])
-
-            if cmd == "heartbeat" and payload["sid"] not in self.nodes:
-                self.request_sids(payload["sid"])
-                self.nodes[payload["sid"]] = json.loads(payload["data"])
-                self.nodes[payload["sid"]]["model"] = payload["model"]
-                self.nodes[payload["sid"]]["sensors"] = []
-
-            if cmd == "get_id_list_ack":
-                device_sids = json.loads(payload["data"])
-                self.nodes[payload["sid"]]["nodes"] = device_sids
-
-                for sid in device_sids:
-                    self.request_current_status(sid)
-
-        if "token" in payload:
-            self.last_tokens[payload["sid"]] = payload['token']
-
-    def request_sids(self, sid):
-        """Request System Ids from the hub."""
-        self.send_command({"cmd": "get_id_list", sid: sid})
-
-    def request_current_status(self, device_sid):
-        """Request (read) the current status of the given device sid."""
-        self.send_command({"cmd": "read", "sid": device_sid})
-
-    def send_command(self, data):
-        """Send a command to the UDP subject (all related will answer)."""
-        self.socket.sendto(json.dumps(data).encode("utf-8"),
-                           (self.MULTICAST_ADDRESS, self.MULTICAST_PORT))
-
-    def get_nodes(self):
-        """Return the current discovered node configuration."""
-        return self.nodes

@@ -14,6 +14,6 @@ cb = lambda g, t, d: push_data(g, t, d)
 connector = XiaomiConnector(data_callback=cb)
 yeelight = YeelightConnector(data_callback=cb)
 while True:
-    connector.check_incoming()
+    #connector.check_incoming()
     yeelight.check_incoming()
     time.sleep(0.05)

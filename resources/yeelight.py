@@ -20,8 +20,6 @@ class YeelightConnector:
         self.last_tokens = dict()
         self.socket = self._prepare_socket()
 
-        self.nodes = dict()
-
     def _prepare_socket(self):
         sock = socket.socket(socket.AF_INET,  # Internet
                              socket.SOCK_DGRAM)  # UDP
@@ -57,4 +55,5 @@ class YeelightConnector:
         """
         if self.data_callback is not None:
             self.data_callback(addr[0],
+                               'yeelight',
                                data)
