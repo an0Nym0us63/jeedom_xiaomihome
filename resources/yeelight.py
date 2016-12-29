@@ -47,7 +47,7 @@ class YeelightConnector:
         try:
             #print(data)
             report = dict()
-            lines = data.split('\n')
+            lines = data.split('\r\n')
             for line in lines:
                 #print('line' + line)
                 if ': ' in line:

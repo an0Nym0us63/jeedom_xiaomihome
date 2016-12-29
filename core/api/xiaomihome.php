@@ -22,10 +22,6 @@ if (!jeedom::apiAccess(init('apikey'), 'xiaomihome')) {
     die();
 }
 
-if (init('type') == 'yeelight') {
-    log::add('xiaomihome', 'info', 'Yeelight');
-}
-
 $body = json_decode(file_get_contents('php://input'), true);
 log::add('xiaomihome', 'debug', 'Recu ' . init('type') . ' de ' . init('gateway') . ' : ' . print_r($body, true));
 if (init('type') == 'aquara') {
@@ -47,7 +43,7 @@ if (init('type') == 'aquara') {
         }
     }
 } else {
-    
+    xiaomihome::receiveYeelight(init('gateway'), $body['id'], $body['model'], $body['fw_ver'], $body['power'], $body['color_mode'], $body['rgb'], $body['bright'], $body['hue'], $body['sat'], $body['ct']);
 }
 
 

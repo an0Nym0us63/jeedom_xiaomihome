@@ -33,33 +33,57 @@ class xiaomihome extends eqLogic {
         $cmd = 'yee --ip=' . $ip . ' status';
     }
 
-    /*public static function postUpdate() {
-        if ($this->getConfiguration('type') == 'yeelight') {
-            $this->checkCmdOk('status', 'info', 'Statut', 'binary', '', '', '1', 'light', '');
-            $this->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '', '0', '', '<i class="fa fa-toggle-on"></i>');
-            $this->checkCmdOk('on', 'action', 'Allumer', 'action', 'other', 'on', 'status', '0', 'light', '<i class="fa fa-sun-o"></i>');
-            $this->checkCmdOk('off', 'action', 'Eteindre', 'action', 'other', 'off', 'status', '0', 'light', '<i class="fa fa-power-off"><\/i');
-
-            //brightness 0-100
-            $this->checkCmdOk('brightness', 'Luminosité', 'info', 'numeric', '', '', '0', 'line', '');
-            $this->checkCmdOk('brightnessAct', 'Définir Luminosité', 'action', 'slider', 'brightness', 'brightness', '1', '', '');
-
-            //RGB
-            $this->checkCmdOk('rgb', 'Couleur RGB', 'info', 'string', '', '', '0', 'line', '');
-            $this->checkCmdOk('rgbAct', 'Définir Couleur RGB', 'action', 'color', 'rgb', 'rgb', '1', '', '');
-
-            //HSV 0-253 + Saturation 0-100
-            $this->checkCmdOk('hsv', 'Couleur HSV', 'info', 'numérique', '', '', '0', 'line', '');
-            $this->checkCmdOk('hsvAct', 'Définir Couleur HSV', 'action', 'slider', 'hsv', 'hsv', '1', '', '');
-            $this->checkCmdOk('saturation', 'Couleur Intensité HSV', 'info', 'numérique', '', '', '0', 'line', '');
-            $this->checkCmdOk('saturationAct', 'Définir Intensité HSV', 'action', 'slider', 'hsv', 'saturation', '1', '', '');
-
-
-            //Température en Kelvin 1700-6500
-            $this->checkCmdOk('temperature', 'Température', 'info', 'numérique', '0', 'line', '');
-            $this->checkCmdOk('temperatureAct', 'Définir Température', 'action', 'slider', '1', '', '');
+    public static function receiveYeelight($ip, $id, $model, $fw_ver, $power, $color_mode, $rgb, $bright, $hue, $saturation, $color_temp) {
+        $xiaomihome = self::byLogicalId($sid, 'xiaomihome');
+        if (!is_object($xiaomihome)) {
+            $xiaomihome = new xiaomihome();
+            $xiaomihome->setEqType_name('xiaomihome');
+            $xiaomihome->setLogicalId($id);
+            $xiaomihome->setName($model . ' ' . $id);
+            $xiaomihome->setConfiguration('sid', $id);
+            $xiaomihome->setIsEnable(1);
+		    $xiaomihome->setIsVisible(1);
         }
-    }*/
+        $xiaomihome->setConfiguration('model',$model);
+        $xiaomihome->setConfiguration('short_id',$fw_ver);
+        $xiaomihome->setConfiguration('gateway',$ip);
+        $xiaomihome->setConfiguration('type','yeelight');
+        $xiaomihome->setConfiguration('lastCommunication',date('Y-m-d H:i:s'));
+        $xiaomihome->save();
+
+        $xiaomihome->checkCmdOk('status', 'info', 'Statut', 'binary', '', '', '1', 'light', '');
+        $power = ($power == 'off')? 0:1;
+        $xiaomihome->checkAndUpdateCmd('status', $power);
+        $xiaomihome->checkCmdOk('color_mode', 'info', 'Mode', 'numeric', '', '', '0', 'line', '');
+        $xiaomihome->checkAndUpdateCmd('color_mode', $color_mode);
+        $xiaomihome->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '', '0', '', '<i class="fa fa-toggle-on"></i>');
+        $xiaomihome->checkCmdOk('on', 'action', 'Allumer', 'action', 'other', 'on', 'status', '0', 'light', '<i class="fa fa-sun-o"></i>');
+        $xiaomihome->checkCmdOk('off', 'action', 'Eteindre', 'action', 'other', 'off', 'status', '0', 'light', '<i class="fa fa-power-off"><\/i');
+
+        //brightness 0-100
+        $xiaomihome->checkCmdOk('brightness', 'Luminosité', 'info', 'numeric', '', '', '0', 'line', '');
+        $xiaomihome->checkAndUpdateCmd('brightness', $bright);
+        $xiaomihome->checkCmdOk('brightnessAct', 'Définir Luminosité', 'action', 'slider', 'brightness', 'brightness', '1', '', '');
+
+        //RGB
+        $xiaomihome->checkCmdOk('rgb', 'Couleur RGB', 'info', 'string', '', '', '0', 'line', '');
+        $xiaomihome->checkAndUpdateCmd('rgb', $rgb);
+        $xiaomihome->checkCmdOk('rgbAct', 'Définir Couleur RGB', 'action', 'color', 'rgb', 'rgb', '1', '', '');
+
+        //HSV 0-253 + Saturation 0-100
+        $xiaomihome->checkCmdOk('hsv', 'Couleur HSV', 'info', 'numérique', '', '', '0', 'line', '');
+        $xiaomihome->checkAndUpdateCmd('hsv', $hue);
+        $xiaomihome->checkCmdOk('hsvAct', 'Définir Couleur HSV', 'action', 'slider', 'hsv', 'hsv', '1', '', '');
+        $xiaomihome->checkCmdOk('saturation', 'Couleur Intensité HSV', 'info', 'numérique', '', '', '0', 'line', '');
+        $xiaomihome->checkAndUpdateCmd('saturation', $saturation);
+        $xiaomihome->checkCmdOk('saturationAct', 'Définir Intensité HSV', 'action', 'slider', 'hsv', 'saturation', '1', '', '');
+
+
+        //Température en Kelvin 1700-6500
+        $xiaomihome->checkCmdOk('temperature', 'Température', 'info', 'numérique', '0', 'line', '');
+        $xiaomihome->checkAndUpdateCmd('temperature', $color_temp);
+        $this->checkCmdOk('temperatureAct', 'Définir Température', 'action', 'slider', '1', '', '');
+    }
 
     public function checkCmdOk($_id, $_name, $_type, $_subtype, $_request, $_setvalue,$_visible, $_template, $_icon) {
         $xiaomihomeCmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($this->getId(),$_id);
