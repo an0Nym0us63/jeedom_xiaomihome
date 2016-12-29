@@ -56,7 +56,7 @@ class YeelightConnector:
                         print(line)
                         report[args[0]] = args[1]
 
-            self.handle_incoming_data(json.dumps(report), addr)
+            self.handle_incoming_data(report, addr)
 
         except Exception as e:
             raise

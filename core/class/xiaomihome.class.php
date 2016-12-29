@@ -34,7 +34,7 @@ class xiaomihome extends eqLogic {
     }
 
     public static function receiveYeelight($ip, $id, $model, $fw_ver, $power, $color_mode, $rgb, $bright, $hue, $saturation, $color_temp) {
-        $xiaomihome = self::byLogicalId($sid, 'xiaomihome');
+        $xiaomihome = self::byLogicalId($id, 'xiaomihome');
         if (!is_object($xiaomihome)) {
             $xiaomihome = new xiaomihome();
             $xiaomihome->setEqType_name('xiaomihome');

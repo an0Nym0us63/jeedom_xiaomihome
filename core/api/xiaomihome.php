@@ -24,7 +24,7 @@ if (!jeedom::apiAccess(init('apikey'), 'xiaomihome')) {
 
 $body = json_decode(file_get_contents('php://input'), true);
 log::add('xiaomihome', 'debug', 'Recu ' . init('type') . ' de ' . init('gateway') . ' : ' . print_r($body, true));
-log::add('xiaomihome', 'debug', 'Body non decode ' . file_get_contents('php://input'));
+//log::add('xiaomihome', 'debug', 'Body non decode ' . file_get_contents('php://input'));
 
 if (init('type') == 'aquara') {
     if ($body['sid'] !== null && $body['model'] !== null) {
