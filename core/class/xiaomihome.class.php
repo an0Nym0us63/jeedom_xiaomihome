@@ -21,6 +21,7 @@ class xiaomihome extends eqLogic {
 
     public static function yeeAction($ip, $request, $option) {
         $cmd = 'yee --ip=' . $ip . ' ' . $request . ' ' . $option;
+        log::add('xiaomihome', 'debug', $cmd);
         exec($cmd);
     }
 
