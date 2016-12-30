@@ -21,6 +21,7 @@ class xiaomihome extends eqLogic {
 
     public static function yeeAction($ip, $request, $option) {
         $cmd = 'yee --ip=' . $ip . ' ' . $request . ' ' . $option;
+        exec($cmd);
     }
 
     public static function aquaraAction($request) {
@@ -370,11 +371,11 @@ class xiaomihome extends eqLogic {
 
 class xiaomihomeCmd extends cmd {
     public function execute($_options = null) {
-        log::add('xiaomihome', 'debug', 'execute : ' . $this->getType() . ' ' . $this->getConfiguration('id') . ' ' . $this->getConfiguration('type') . ' ' . $this->getLogicalId());
         if ($this->getType() == 'info') {
             return $this->getConfiguration('value');
         } else {
             $eqLogic = $this->getEqLogic();
+            log::add('xiaomihome', 'debug', 'execute : ' . $this->getType() . ' ' . $eqLogic->getConfiguration('type') . ' ' . $this->getLogicalId());
             if ($eqLogic->getConfiguration('type') == 'yeelight') {
                 switch ($this->getSubType()) {
                     case 'slider':
