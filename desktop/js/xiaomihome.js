@@ -16,9 +16,22 @@
 
 */
 
-$('#bt_healthRflink').on('click', function () {
-  $('#md_modal').dialog({title: "{{Santé Rflink}}"});
+$('#bt_healthxiaomihome').on('click', function () {
+  $('#md_modal').dialog({title: "{{Santé xiaomihome}}"});
   $('#md_modal').load('index.php?v=d&plugin=xiaomihome&modal=health').dialog('open');
+});
+
+
+$('body').on('xiaomihome::includeDevice', function (_event,_options) {
+    if (modifyWithoutSave) {
+        $('#div_inclusionAlert').showAlert({message: '{{Un périphérique vient d\'être découvert. Veuillez réactualiser la page}}', level: 'warning'});
+    } else {
+        if (_options == '') {
+            window.location.reload();
+        } else {
+            window.location.href = 'index.php?v=d&p=xiaomihome&m=xiaomihome&id=' + _options;
+        }
+    }
 });
 
 $("#table_cmd").delegate(".listEquipementInfo", 'click', function () {

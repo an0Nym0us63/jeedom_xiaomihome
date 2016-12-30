@@ -43,6 +43,11 @@ class xiaomihome extends eqLogic {
             $xiaomihome->setConfiguration('sid', $id);
             $xiaomihome->setIsEnable(1);
 		    $xiaomihome->setIsVisible(1);
+            event::add('xiaomihome::includeDevice',
+            array(
+                'state' => 1
+            )
+            );
         }
         $xiaomihome->setConfiguration('model',$model);
         $xiaomihome->setConfiguration('short_id',$fw_ver);
@@ -146,6 +151,11 @@ class xiaomihome extends eqLogic {
             $xiaomihome->setConfiguration('sid', $sid);
             $xiaomihome->setIsEnable(1);
 		    $xiaomihome->setIsVisible(1);
+            event::add('xiaomihome::includeDevice',
+            array(
+                'state' => 1
+            )
+            );
         }
         $xiaomihome->setConfiguration('model',$model);
         $xiaomihome->setConfiguration('short_id',$short_id);
@@ -167,6 +177,11 @@ class xiaomihome extends eqLogic {
             $xiaomihome->setConfiguration('ip',$ip);
             $xiaomihome->setIsEnable(1);
 		    $xiaomihome->setIsVisible(0);
+            event::add('xiaomihome::includeDevice',
+            array(
+                'state' => 1
+            )
+            );
         }
         $xiaomihome->setConfiguration('gateway',$gateway);
         $xiaomihome->setConfiguration('short_id',$short_id);
