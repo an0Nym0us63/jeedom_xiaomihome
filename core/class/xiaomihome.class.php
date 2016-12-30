@@ -104,15 +104,15 @@ class xiaomihome extends eqLogic {
     $xiaomihome->checkCmdOk('hsv', 'Couleur HSV', 'info', 'numérique', '0', '0', '0', 'line', '0');
     $xiaomihome->checkAndUpdateCmd('hsv', $hue);
     $xiaomihome->checkCmdOk('hsvAct', 'Définir Couleur HSV', 'action', 'slider', 'hsv', 'hsv', '1', '0', '0');
-    $xiaomihome->checkCmdOk('saturation', 'Couleur Intensité HSV', 'info', 'numérique', '0', '0', '0', 'line', '0');
+    $xiaomihome->checkCmdOk('saturation', 'Intensité HSV', 'info', 'numérique', '0', '0', '0', 'line', '0');
     $xiaomihome->checkAndUpdateCmd('saturation', $saturation);
     $xiaomihome->checkCmdOk('saturationAct', 'Définir Intensité HSV', 'action', 'slider', 'hsv', 'saturation', '1', '0', '0');
 
 
     //Température en Kelvin 1700-6500
-    $xiaomihome->checkCmdOk('temperature', 'Température', 'info', 'numérique', '0', 'line', '0');
+    $xiaomihome->checkCmdOk('temperature', 'Température', 'info', 'numérique', '0', '0', '0', 'line', '0');
     $xiaomihome->checkAndUpdateCmd('temperature', $color_temp);
-    $this->checkCmdOk('temperatureAct', 'Définir Température', 'action', 'slider', '1', '0', '0');
+    $this->checkCmdOk('temperatureAct', 'Définir Température', 'action', 'slider', 'ct', 'temperature', '1', '0', '0');
 }
 
 public function checkCmdOk($_id, $_name, $_type, $_subtype, $_request, $_setvalue,$_visible, $_template, $_icon) {
