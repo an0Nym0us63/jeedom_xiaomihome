@@ -19,19 +19,19 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class xiaomihome extends eqLogic {
 
-    public static function yeeAction($ip, $request, $option) {
+    public function yeeAction($ip, $request, $option) {
         $cmd = 'yee --ip=' . $ip . ' ' . $request . ' ' . $option;
         //log::add('xiaomihome', 'debug', $cmd);
         exec($cmd);
     }
 
-    public static function aquaraAction($request) {
+    public function aquaraAction($request) {
         //{"cmd":"write","model":"ctrl_neutral1","sid":"158d0000123456","short_id":4343,"data":"{\"channel_0\":\"on\",\"key\":\"3EB43E37C20AFF4C5872CC0D04D81314\"}" }
         $cmd = '{"cmd":"write","model":"' . $this->getConfiguration('model') . '","sid":"' . $this->getConfiguration('sid') . '","short_id":' . $this->getConfiguration('short_id') . ',"data":"{' . $request . ',\"key\":\"3EB43E37C20AFF4C5872CC0D04D81314\"}" }';
         $gateway = $this->getConfiguration('gateway');
     }
 
-    public static function yeeStatus($ip) {
+    public function yeeStatus($ip) {
         $cmd = 'yee --ip=' . $ip . ' status';
         exec($cmd, $output, $return_var);
 
@@ -56,7 +56,7 @@ class xiaomihome extends eqLogic {
 
 
 
-    public static function receiveYeelight($ip, $id, $model, $fw_ver, $power, $color_mode, $rgb, $bright, $hue, $saturation, $color_temp) {
+    public function receiveYeelight($ip, $id, $model, $fw_ver, $power, $color_mode, $rgb, $bright, $hue, $saturation, $color_temp) {
         $xiaomihome = self::byLogicalId($id, 'xiaomihome');
         if (!is_object($xiaomihome)) {
             $xiaomihome = new xiaomihome();
