@@ -399,6 +399,7 @@ class xiaomihomeCmd extends cmd {
                     default :
                         $option = '';
                   }
+                  log::add('xiaomihome', 'debug', $eqLogic->getConfiguration('gateway') . ' ' . $this->getConfiguration('request') . ' ' . $option);
                 $eqLogic->yeeAction($eqLogic->getConfiguration('gateway'),$this->getConfiguration('request'),$option);
             } else {
 
