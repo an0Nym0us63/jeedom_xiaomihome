@@ -188,11 +188,10 @@ $eqLogics = eqLogic::byType('xiaomihome');
           <thead>
             <tr>
               <th style="width: 50px;">#</th>
-              <th style="width: 150px;">{{Nom}}</th>
-              <th style="width: 110px;">{{Type}}</th>
-              <th style="width: 110px;">{{Identifiant}}</th>
+              <th style="width: 250px;">{{Nom}}</th>
+              <th style="width: 100px;">{{Type}}</th>
               <th style="width: 100px;">{{Unité}}</th>
-              <th style="width: 200px;">{{Paramètres}}</th>
+              <th style="width: 150px;">{{Paramètres}}</th>
               <th style="width: 100px;"></th>
             </tr>
           </thead>

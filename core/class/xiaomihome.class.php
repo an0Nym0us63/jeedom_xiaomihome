@@ -88,7 +88,7 @@ class xiaomihome extends eqLogic {
     $xiaomihome->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '0', '0', '0', '<i class="fa fa-toggle-on"></i>');
     $xiaomihome->checkCmdOk('refresh', 'Raffraichir', 'action', 'other', 'refresh', '0', '0', '0', '<i class="fa fa-refresh"></i>');
     $xiaomihome->checkCmdOk('on', 'Allumer', 'action', 'other', 'on', 'status', '0', 'light', '<i class="fa fa-sun-o"></i>');
-    $xiaomihome->checkCmdOk('off', 'Eteindre', 'action', 'other', 'off', 'status', '0', 'light', '<i class="fa fa-power-off"><\/i>');
+    $xiaomihome->checkCmdOk('off', 'Eteindre', 'action', 'other', 'off', 'status', '0', 'light', '<i class="fa fa-power-off"></i>');
 
     //brightness 0-100
     $xiaomihome->checkCmdOk('brightness', 'Luminosité', 'info', 'numeric', '0', '0', '0', 'line', '0');
