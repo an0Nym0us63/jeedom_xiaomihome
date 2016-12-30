@@ -3,7 +3,7 @@ import sys
 import time
 from connector import *
 from yeelight import *
-import thread
+import threading
 import requests
 
 def push_data(gateway, xiaomi, data):
