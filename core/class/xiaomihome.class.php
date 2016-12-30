@@ -23,7 +23,6 @@ class xiaomihome extends eqLogic {
         $cmd = 'yee --ip=' . $ip . ' ' . $request . ' ' . $option;
         //log::add('xiaomihome', 'debug', $cmd);
         exec($cmd);
-        $this->yeeStatus($ip);
     }
 
     public static function aquaraAction($request) {
