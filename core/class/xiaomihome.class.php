@@ -21,7 +21,7 @@ class xiaomihome extends eqLogic {
 
     public function yeeAction($ip, $request, $option) {
         $cmd = 'yee --ip=' . $ip . ' ' . $request . ' ' . $option;
-        //log::add('xiaomihome', 'debug', $cmd);
+        log::add('xiaomihome', 'debug', $cmd);
         exec($cmd);
     }
 
@@ -47,11 +47,11 @@ class xiaomihome extends eqLogic {
         $this->checkAndUpdateCmd('status', $power);
         $this->checkAndUpdateCmd('color_mode', $color_mode[1]);
         $this->checkAndUpdateCmd('brightness', $bright[1]);
-        $this->checkAndUpdateCmd('rgb', $rgb[1]);
+        $this->checkAndUpdateCmd('rgb', dechex($rgb[1]));
         $this->checkAndUpdateCmd('hsv', $hue[1]);
         $this->checkAndUpdateCmd('saturation', $saturation[1]);
         $this->checkAndUpdateCmd('temperature', $color_temp[1]);
-        log::add('xiaomihome', 'debug', $power . ' ' . $color_mode[1] . ' ' . $bright[1] . ' ' . $rgb[1] . ' ' . $hue[1] . ' ' . $saturation[1] . ' ' . $color_temp[1]);
+        //log::add('xiaomihome', 'debug', $power . ' ' . $color_mode[1] . ' ' . $bright[1] . ' ' . dechex($rgb[1]) . ' ' . $hue[1] . ' ' . $saturation[1] . ' ' . $color_temp[1]);
 
     }
 
@@ -97,7 +97,7 @@ class xiaomihome extends eqLogic {
 
     //RGB
     $xiaomihome->checkCmdOk('rgb', 'Couleur RGB', 'info', 'string', '0', '0', '0', 'line', '0');
-    $xiaomihome->checkAndUpdateCmd('rgb', $rgb);
+    $xiaomihome->checkAndUpdateCmd('rgb', dechex($rgb));
     $xiaomihome->checkCmdOk('rgbAct', 'Définir Couleur RGB', 'action', 'color', 'rgb', 'rgb', '1', '0', '0');
 
     //HSV 0-253 + Saturation 0-100
