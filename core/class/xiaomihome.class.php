@@ -51,7 +51,7 @@ class xiaomihome extends eqLogic {
         $this->checkAndUpdateCmd('hsv', $hue[1]);
         $this->checkAndUpdateCmd('saturation', $saturation[1]);
         $this->checkAndUpdateCmd('temperature', $color_temp[1]);
-        //log::add('xiaomihome', 'debug', $power . ' ' . $color_mode[1] . ' ' . $bright[1] . ' ' . dechex($rgb[1]) . ' ' . $hue[1] . ' ' . $saturation[1] . ' ' . $color_temp[1]);
+        log::add('xiaomihome', 'debug', $power . ' ' . $color_mode[1] . ' ' . $bright[1] . ' ' . '#' . str_pad(dechex($rgb[1]), 6, "0", STR_PAD_LEFT) . ' ' . $hue[1] . ' ' . $saturation[1] . ' ' . $color_temp[1]);
 
     }
 
