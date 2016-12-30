@@ -26,11 +26,7 @@ $('body').on('xiaomihome::includeDevice', function (_event,_options) {
     if (modifyWithoutSave) {
         $('#div_inclusionAlert').showAlert({message: '{{Un périphérique vient d\'être découvert. Veuillez réactualiser la page}}', level: 'warning'});
     } else {
-        if (_options == '') {
-            window.location.reload();
-        } else {
-            window.location.href = 'index.php?v=d&p=xiaomihome&m=xiaomihome&id=' + _options;
-        }
+        window.location.reload();
     }
 });
 
