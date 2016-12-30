@@ -403,11 +403,11 @@ class xiaomihomeCmd extends cmd {
                     $option = $_options['slider'];
                     if ($this->getLogicalId() == 'hsvAct') {
                         $cplmtcmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'saturation');
-                        $option = $option . ' ' . $cplmtcmd->getConfiguration('value');
+                        $option = $option . ' ' . $cplmtcmd->execCmd();
                     }
                     if ($this->getLogicalId() == 'saturationAct') {
                         $cplmtcmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'hsv');
-                        $option = $cplmtcmd->getConfiguration('value') . ' ' . $option;
+                        $option = $cplmtcmd->execCmd() . ' ' . $option;
                     }
                     log::add('xiaomihome', 'debug', 'Slider : ' . $option);
                     break;
