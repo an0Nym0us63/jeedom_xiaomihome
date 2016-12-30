@@ -412,9 +412,10 @@ class xiaomihomeCmd extends cmd {
                         $cplmtcmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'hsv');
                         $option = $cplmtcmd->execute() . ' ' . $option;
                     }
+                    log::add('xiaomihome', 'debug', 'Slider : ' . $option);
                     break;
                     case 'color':
-                    $option = $_options['color'];
+                    $option = str_replace('#','',$_options['color']);
                     break;
                     case 'message':
                     $option = $_options['title'] . ' ' . $_options['message'];
