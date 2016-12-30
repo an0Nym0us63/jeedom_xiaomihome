@@ -45,7 +45,7 @@ if (init('type') == 'aquara') {
         }
     }
 
-    if ($body['token'] != config::byKey('token','xiaomihome')) {
+    if (isset($body['token']) && ($body['token'] != config::byKey('token','xiaomihome'))) {
         config::save('token', $body['token'],  'xiaomihome');
     }
 
