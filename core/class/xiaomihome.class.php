@@ -51,11 +51,8 @@ class xiaomihome extends eqLogic {
         $this->checkAndUpdateCmd('hsv', $hue[1]);
         $this->checkAndUpdateCmd('saturation', $saturation[1]);
         $this->checkAndUpdateCmd('temperature', $color_temp[1]);
-        log::add('xiaomihome', 'debug', $power . ' ' . $color_mode[1] . ' ' . $bright[1] . ' ' . '#' . str_pad(dechex($rgb[1]), 6, "0", STR_PAD_LEFT) . ' ' . $hue[1] . ' ' . $saturation[1] . ' ' . $color_temp[1]);
-
+        //log::add('xiaomihome', 'debug', $power . ' ' . $color_mode[1] . ' ' . $bright[1] . ' ' . '#' . str_pad(dechex($rgb[1]), 6, "0", STR_PAD_LEFT) . ' ' . $hue[1] . ' ' . $saturation[1] . ' ' . $color_temp[1]);
     }
-
-
 
     public function receiveYeelight($ip, $id, $model, $fw_ver, $power, $color_mode, $rgb, $bright, $hue, $saturation, $color_temp) {
         $xiaomihome = self::byLogicalId($id, 'xiaomihome');
@@ -106,7 +103,7 @@ class xiaomihome extends eqLogic {
     $xiaomihome->checkCmdOk('hsvAct', 'Définir Couleur HSV', 'action', 'slider', 'hsv', 'hsv', '1', '0', '0');
     $xiaomihome->checkCmdOk('saturation', 'Intensité HSV', 'info', 'numeric', '0', '0', '0', 'line', '0');
     $xiaomihome->checkAndUpdateCmd('saturation', $saturation);
-    $xiaomihome->checkCmdOk('saturationAct', 'Définir Intensité HSV', 'action', 'slider', 'hsv', 'saturation', '1', '0', '0');
+    $xiaomihome->checkCmdOk('saturationAct', 'Définir Intensité HSV', 'action', 'slider', 'saturation', 'saturation', '1', '0', '0');
 
 
     //Température en Kelvin 1700-6500
