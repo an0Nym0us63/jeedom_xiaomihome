@@ -53,35 +53,35 @@ class xiaomihome extends eqLogic {
 
         $xiaomihome->checkCmdOk('status', 'info', 'Statut', 'binary', '', '', '1', 'light', '');
         $power = ($power == 'off')? 0:1;
-        $xiaomihome->checkAndUpdateCmd('status', $power);
+        //$xiaomihome->checkAndUpdateCmd('status', $power);
         $xiaomihome->checkCmdOk('color_mode', 'info', 'Mode', 'numeric', '', '', '0', 'line', '');
-        $xiaomihome->checkAndUpdateCmd('color_mode', $color_mode);
+        //$xiaomihome->checkAndUpdateCmd('color_mode', $color_mode);
         $xiaomihome->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '', '0', '', '<i class="fa fa-toggle-on"></i>');
         $xiaomihome->checkCmdOk('on', 'action', 'Allumer', 'action', 'other', 'on', 'status', '0', 'light', '<i class="fa fa-sun-o"></i>');
         $xiaomihome->checkCmdOk('off', 'action', 'Eteindre', 'action', 'other', 'off', 'status', '0', 'light', '<i class="fa fa-power-off"><\/i');
 
         //brightness 0-100
         $xiaomihome->checkCmdOk('brightness', 'Luminosité', 'info', 'numeric', '', '', '0', 'line', '');
-        $xiaomihome->checkAndUpdateCmd('brightness', $bright);
+        //$xiaomihome->checkAndUpdateCmd('brightness', $bright);
         $xiaomihome->checkCmdOk('brightnessAct', 'Définir Luminosité', 'action', 'slider', 'brightness', 'brightness', '1', '', '');
 
         //RGB
         $xiaomihome->checkCmdOk('rgb', 'Couleur RGB', 'info', 'string', '', '', '0', 'line', '');
-        $xiaomihome->checkAndUpdateCmd('rgb', $rgb);
+        //$xiaomihome->checkAndUpdateCmd('rgb', $rgb);
         $xiaomihome->checkCmdOk('rgbAct', 'Définir Couleur RGB', 'action', 'color', 'rgb', 'rgb', '1', '', '');
 
         //HSV 0-253 + Saturation 0-100
         $xiaomihome->checkCmdOk('hsv', 'Couleur HSV', 'info', 'numérique', '', '', '0', 'line', '');
-        $xiaomihome->checkAndUpdateCmd('hsv', $hue);
+        //$xiaomihome->checkAndUpdateCmd('hsv', $hue);
         $xiaomihome->checkCmdOk('hsvAct', 'Définir Couleur HSV', 'action', 'slider', 'hsv', 'hsv', '1', '', '');
         $xiaomihome->checkCmdOk('saturation', 'Couleur Intensité HSV', 'info', 'numérique', '', '', '0', 'line', '');
-        $xiaomihome->checkAndUpdateCmd('saturation', $saturation);
+        //$xiaomihome->checkAndUpdateCmd('saturation', $saturation);
         $xiaomihome->checkCmdOk('saturationAct', 'Définir Intensité HSV', 'action', 'slider', 'hsv', 'saturation', '1', '', '');
 
 
         //Température en Kelvin 1700-6500
         $xiaomihome->checkCmdOk('temperature', 'Température', 'info', 'numérique', '0', 'line', '');
-        $xiaomihome->checkAndUpdateCmd('temperature', $color_temp);
+        //$xiaomihome->checkAndUpdateCmd('temperature', $color_temp);
         $this->checkCmdOk('temperatureAct', 'Définir Température', 'action', 'slider', '1', '', '');
     }
 
