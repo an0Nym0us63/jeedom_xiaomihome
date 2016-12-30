@@ -5,7 +5,7 @@ import struct
 import json
 
 
-class XiaomiConnector:
+class AquaraConnector:
     """Connector for the Xiaomi Mi Hub and devices on multicast."""
 
     MULTICAST_PORT = 9898
@@ -41,7 +41,7 @@ class XiaomiConnector:
         data, addr = self.socket.recvfrom(self.SOCKET_BUFSIZE)
         try:
             payload = json.loads(data.decode("utf-8"))
-            print(data)
+            print('Aquara received from ' + addr[0] + ' : ' + data)
             self.handle_incoming_data(payload, addr)
 
         except Exception as e:

@@ -53,10 +53,11 @@ class YeelightConnector:
                 if ': ' in line:
                     args = line.split(': ')
                     if args[0] in self.toReport:
-                        print(line)
+
                         report[args[0]] = args[1]
 
             self.handle_incoming_data(report, addr)
+            print('Yeelight received from ' + addr[0] + ' : ' + report)
 
         except Exception as e:
             raise

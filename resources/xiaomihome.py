@@ -1,7 +1,7 @@
 import logging
 import sys
 import time
-from connector import *
+from aquara import *
 from yeelight import *
 import threading
 import requests
