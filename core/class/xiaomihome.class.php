@@ -47,7 +47,7 @@ class xiaomihome extends eqLogic {
         $this->checkAndUpdateCmd('status', $power);
         $this->checkAndUpdateCmd('color_mode', $color_mode[1]);
         $this->checkAndUpdateCmd('brightness', $bright[1]);
-        $this->checkAndUpdateCmd('rgb', dechex($rgb[1]));
+        $this->checkAndUpdateCmd('rgb', '#' . str_pad(dechex($rgb[1]), 6, "0", STR_PAD_LEFT));
         $this->checkAndUpdateCmd('hsv', $hue[1]);
         $this->checkAndUpdateCmd('saturation', $saturation[1]);
         $this->checkAndUpdateCmd('temperature', $color_temp[1]);
@@ -97,7 +97,7 @@ class xiaomihome extends eqLogic {
 
     //RGB
     $xiaomihome->checkCmdOk('rgb', 'Couleur RGB', 'info', 'string', '0', '0', '0', 'line', '0');
-    $xiaomihome->checkAndUpdateCmd('rgb', dechex($rgb));
+    $xiaomihome->checkAndUpdateCmd('rgb', '#' . str_pad(dechex($rgb), 6, "0", STR_PAD_LEFT));
     $xiaomihome->checkCmdOk('rgbAct', 'Définir Couleur RGB', 'action', 'color', 'rgb', 'rgb', '1', '0', '0');
 
     //HSV 0-253 + Saturation 0-100
@@ -406,11 +406,11 @@ class xiaomihomeCmd extends cmd {
                     $option = $_options['slider'];
                     if ($this->getLogicalId() == 'hsvAct') {
                         $cplmtcmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'saturation');
-                        $option = $option . ' ' . $cplmtcmd->execute();
+                        $option = $option . ' ' . $cplmtcmd->getConfiguration('value');
                     }
                     if ($this->getLogicalId() == 'saturationAct') {
                         $cplmtcmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($eqLogic->getId(),'hsv');
-                        $option = $cplmtcmd->execute() . ' ' . $option;
+                        $option = $cplmtcmd->getConfiguration('value') . ' ' . $option;
                     }
                     log::add('xiaomihome', 'debug', 'Slider : ' . $option);
                     break;
