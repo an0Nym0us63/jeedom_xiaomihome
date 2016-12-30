@@ -11,20 +11,35 @@ def push_data(gateway, xiaomi, data):
 
 cb = lambda g, t, d: push_data(g, t, d)
 
-def xiaomiconnector(cb) :
+class myThread (threading.Thread):
+    def __init__(self, threadID, name):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
+    def run(self):
+        print "Starting thread " + self.name
+        if self.name == 'Xiaomi' :
+            xiaomiconnector()
+        else :
+            yeelightconnector()
+        print "Exiting thread " + self.name
+
+def xiaomiconnector() :
     connector = XiaomiConnector(data_callback=cb)
     while True:
         connector.check_incoming()
         time.sleep(0.05)
 
-def yeelightconnector(cb) :
+def yeelightconnector() :
     yeelight = YeelightConnector(data_callback=cb)
     while True:
         yeelight.check_incoming()
         time.sleep(0.05)
 
-if __name__ == '__main__':
-    thread.start_new_thread( xiaomiconnector, (cb,))
-    logging.debug('Xiaomi Thread Launched')
-    thread.start_new_thread( yeelightconnector, (cb,))
-    logging.debug('Yeelight Thread Launched')
+# Create new threads
+thread1 = myThread(1, "Xiaomi")
+thread2 = myThread(2, "Yeelight")
+
+# Start new Threads
+thread1.start()
+thread2.start()

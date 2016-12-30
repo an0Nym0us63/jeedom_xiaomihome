@@ -50,6 +50,7 @@ if (init('type') == 'aquara') {
     }
 
 } else {
+    log::add('xiaomihome', 'debug', 'Yeelight recu ' . init('gateway') . ' ' . $body['id'] . ' ' . $body['model'] . ' ' . $body['fw_ver'] . ' ' . $body['power'] . ' ' . $body['color_mode'] . ' ' . $body['rgb'] . ' ' . $body['bright'] . ' ' . $body['hue'] . ' ' . $body['sat'] . ' ' . $body['ct']);
     xiaomihome::receiveYeelight(init('gateway'), $body['id'], $body['model'], $body['fw_ver'], $body['power'], $body['color_mode'], $body['rgb'], $body['bright'], $body['hue'], $body['sat'], $body['ct']);
 }
 
