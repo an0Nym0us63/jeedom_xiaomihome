@@ -54,7 +54,7 @@ class xiaomihome extends eqLogic {
         $xiaomihome->checkCmdOk('status', 'info', 'Statut', 'binary', '', '', '1', 'light', '');
         $power = ($power == 'off')? 0:1;
         //$xiaomihome->checkAndUpdateCmd('status', $power);
-        $xiaomihome->checkCmdOk('color_mode', 'info', 'Mode', 'numeric', '', '', '0', 'line', '');
+        $xiaomihome->checkCmdOk('colormode', 'info', 'Mode', 'numeric', '', '', '0', 'line', '');
         //$xiaomihome->checkAndUpdateCmd('color_mode', $color_mode);
         $xiaomihome->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '', '0', '', '<i class="fa fa-toggle-on"></i>');
         $xiaomihome->checkCmdOk('on', 'action', 'Allumer', 'action', 'other', 'on', 'status', '0', 'light', '<i class="fa fa-sun-o"></i>');
