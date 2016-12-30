@@ -51,38 +51,38 @@ class xiaomihome extends eqLogic {
         $xiaomihome->setConfiguration('lastCommunication',date('Y-m-d H:i:s'));
         $xiaomihome->save();
 
-        $xiaomihome->checkCmdOk('status', 'info', 'Statut', 'binary', '', '', '1', 'light', '');
+        $xiaomihome->checkCmdOk('status', 'info', 'Statut', 'binary', '0', '0', '1', 'light', '0');
         $power = ($power == 'off')? 0:1;
         //$xiaomihome->checkAndUpdateCmd('status', $power);
-        $xiaomihome->checkCmdOk('colormode', 'info', 'Mode', 'numeric', '', '', '0', 'line', '');
+        $xiaomihome->checkCmdOk('colormode', 'info', 'Mode', 'numeric', '0', '0', '0', 'line', '0');
         //$xiaomihome->checkAndUpdateCmd('color_mode', $color_mode);
-        $xiaomihome->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '', '0', '', '<i class="fa fa-toggle-on"></i>');
-        $xiaomihome->checkCmdOk('on', 'action', 'Allumer', 'action', 'other', 'on', 'status', '0', 'light', '<i class="fa fa-sun-o"></i>');
-        $xiaomihome->checkCmdOk('off', 'action', 'Eteindre', 'action', 'other', 'off', 'status', '0', 'light', '<i class="fa fa-power-off"><\/i');
+        $xiaomihome->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '0', '0', '0', '<i class=\"fa fa-toggle-on\"></i>');
+        $xiaomihome->checkCmdOk('on', 'action', 'Allumer', 'action', 'other', 'on', 'status', '0', 'light', '<i class=\"fa fa-sun-o\"></i>');
+        $xiaomihome->checkCmdOk('off', 'action', 'Eteindre', 'action', 'other', 'off', 'status', '0', 'light', '<i class=\"fa fa-power-off\"><\/i');
 
         //brightness 0-100
-        $xiaomihome->checkCmdOk('brightness', 'Luminosité', 'info', 'numeric', '', '', '0', 'line', '');
+        $xiaomihome->checkCmdOk('brightness', 'Luminosité', 'info', 'numeric', '0', '0', '0', 'line', '0');
         //$xiaomihome->checkAndUpdateCmd('brightness', $bright);
-        $xiaomihome->checkCmdOk('brightnessAct', 'Définir Luminosité', 'action', 'slider', 'brightness', 'brightness', '1', '', '');
+        $xiaomihome->checkCmdOk('brightnessAct', 'Définir Luminosité', 'action', 'slider', 'brightness', 'brightness', '1', '0', '0');
 
         //RGB
-        $xiaomihome->checkCmdOk('rgb', 'Couleur RGB', 'info', 'string', '', '', '0', 'line', '');
+        $xiaomihome->checkCmdOk('rgb', 'Couleur RGB', 'info', 'string', '0', '0', '0', 'line', '0');
         //$xiaomihome->checkAndUpdateCmd('rgb', $rgb);
-        $xiaomihome->checkCmdOk('rgbAct', 'Définir Couleur RGB', 'action', 'color', 'rgb', 'rgb', '1', '', '');
+        $xiaomihome->checkCmdOk('rgbAct', 'Définir Couleur RGB', 'action', 'color', 'rgb', 'rgb', '1', '0', '0');
 
         //HSV 0-253 + Saturation 0-100
-        $xiaomihome->checkCmdOk('hsv', 'Couleur HSV', 'info', 'numérique', '', '', '0', 'line', '');
+        $xiaomihome->checkCmdOk('hsv', 'Couleur HSV', 'info', 'numérique', '0', '0', '0', 'line', '0');
         //$xiaomihome->checkAndUpdateCmd('hsv', $hue);
-        $xiaomihome->checkCmdOk('hsvAct', 'Définir Couleur HSV', 'action', 'slider', 'hsv', 'hsv', '1', '', '');
-        $xiaomihome->checkCmdOk('saturation', 'Couleur Intensité HSV', 'info', 'numérique', '', '', '0', 'line', '');
+        $xiaomihome->checkCmdOk('hsvAct', 'Définir Couleur HSV', 'action', 'slider', 'hsv', 'hsv', '1', '0', '0');
+        $xiaomihome->checkCmdOk('saturation', 'Couleur Intensité HSV', 'info', 'numérique', '0', '0', '0', 'line', '0');
         //$xiaomihome->checkAndUpdateCmd('saturation', $saturation);
-        $xiaomihome->checkCmdOk('saturationAct', 'Définir Intensité HSV', 'action', 'slider', 'hsv', 'saturation', '1', '', '');
+        $xiaomihome->checkCmdOk('saturationAct', 'Définir Intensité HSV', 'action', 'slider', 'hsv', 'saturation', '1', '0', '0');
 
 
         //Température en Kelvin 1700-6500
-        $xiaomihome->checkCmdOk('temperature', 'Température', 'info', 'numérique', '0', 'line', '');
+        $xiaomihome->checkCmdOk('temperature', 'Température', 'info', 'numérique', '0', 'line', '0');
         //$xiaomihome->checkAndUpdateCmd('temperature', $color_temp);
-        $this->checkCmdOk('temperatureAct', 'Définir Température', 'action', 'slider', '1', '', '');
+        $this->checkCmdOk('temperatureAct', 'Définir Température', 'action', 'slider', '1', '0', '0');
     }
 
     public function checkCmdOk($_id, $_name, $_type, $_subtype, $_request, $_setvalue,$_visible, $_template, $_icon) {
@@ -118,18 +118,18 @@ class xiaomihome extends eqLogic {
                 }
             }
             $xiaomihomeCmd->setIsVisible($_visible);
-            if ($_request != '') {
+            if ($_request != '0') {
                 $xiaomihomeCmd->setConfiguration('request', $_request);
             }
-            if ($_setvalue != '') {
+            if ($_setvalue != '0') {
                 $cmdlogic = xiaomihomeCmd::byEqLogicIdAndLogicalId($this->getId(),$_setvalue);
                 $xiaomihomeCmd->setValue($cmdlogic->getId());
             }
-            if ($_template != '') {
+            if ($_template != '0') {
                 $xiaomihomeCmd->setTemplate("mobile",$_template );
                 $xiaomihomeCmd->setTemplate("dashboard",$_template );
             }
-            if ($_icon != '') {
+            if ($_icon != '0') {
                 $xiaomihomeCmd->setDisplay('icon', $_icon);
             }
             $xiaomihomeCmd->save();
