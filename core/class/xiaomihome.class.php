@@ -63,9 +63,9 @@ class xiaomihome extends eqLogic {
         //$xiaomihome->checkAndUpdateCmd('status', $power);
         $xiaomihome->checkCmdOk('colormode', 'Mode', 'info', 'numeric', '0', '0', '0', 'line', '0');
         //$xiaomihome->checkAndUpdateCmd('color_mode', $color_mode);
-        $xiaomihome->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '0', '0', '0', '<i class=\"fa fa-toggle-on\"></i>');
-        $xiaomihome->checkCmdOk('on', 'Allumer', 'action', 'action', 'other', 'on', 'status', '0', 'light', '<i class=\"fa fa-sun-o\"></i>');
-        $xiaomihome->checkCmdOk('off', 'Eteindre', 'action', 'action', 'other', 'off', 'status', '0', 'light', '<i class=\"fa fa-power-off\"><\/i');
+        $xiaomihome->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '0', '0', '0', '<i class="fa fa-toggle-on"></i>');
+        $xiaomihome->checkCmdOk('on', 'Allumer', 'action', 'action', 'other', 'on', 'status', '0', 'light', '<i class="fa fa-sun-o"></i>');
+        $xiaomihome->checkCmdOk('off', 'Eteindre', 'action', 'action', 'other', 'off', 'status', '0', 'light', '<i class="fa fa-power-off"><\/i');
 
         //brightness 0-100
         $xiaomihome->checkCmdOk('brightness', 'Luminosité', 'info', 'numeric', '0', '0', '0', 'line', '0');
@@ -399,7 +399,7 @@ class xiaomihomeCmd extends cmd {
                     default :
                         $option = '';
                   }
-                $eqLogic->yeeAction($eqLogic->getConfiguration('ip'),$this->getConfiguration('request'),$option);
+                $eqLogic->yeeAction($eqLogic->getConfiguration('gateway'),$this->getConfiguration('request'),$option);
             } else {
 
             }
