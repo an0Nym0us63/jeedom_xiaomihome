@@ -3,8 +3,6 @@ import socket
 import binascii
 import struct
 import json
-import cStringIO
-
 
 class YeelightConnector:
     """Connector for the Yeelight devices on multicast."""
@@ -14,8 +12,6 @@ class YeelightConnector:
 
     MULTICAST_ADDRESS = '239.255.255.250'
     SOCKET_BUFSIZE = 1024
-
-    StringIO = cStringIO
 
     toReport = ['id', 'model', 'fw_ver', 'power', 'bright', 'color_mode', 'ct', 'rgb', 'hue', 'sat']
 
@@ -57,7 +53,7 @@ class YeelightConnector:
                         report[args[0]] = args[1]
 
             self.handle_incoming_data(report, addr)
-            print('Yeelight received from ' + addr[0] + ' : ' + report)
+            print('Yeelight received from ' + addr[0] + ' : ' + json.dumps(report))
 
         except Exception as e:
             raise

@@ -25,7 +25,7 @@ class myThread (threading.Thread):
         print "Exiting thread " + self.name
 
 def xiaomiconnector() :
-    connector = XiaomiConnector(data_callback=cb)
+    connector = AquaraConnector(data_callback=cb)
     while True:
         connector.check_incoming()
         time.sleep(0.05)
