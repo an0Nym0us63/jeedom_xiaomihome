@@ -51,10 +51,10 @@ class xiaomihome extends eqLogic {
         $xiaomihome->setConfiguration('lastCommunication',date('Y-m-d H:i:s'));
         $xiaomihome->save();
 
-        $xiaomihome->checkCmdOk('status', 'info', 'Statut', 'binary', '0', '0', '1', 'light', '0');
+        $xiaomihome->checkCmdOk('status', 'Statut', 'info', 'binary', '0', '0', '1', 'light', '0');
         $power = ($power == 'off')? 0:1;
         //$xiaomihome->checkAndUpdateCmd('status', $power);
-        $xiaomihome->checkCmdOk('colormode', 'info', 'Mode', 'numeric', '0', '0', '0', 'line', '0');
+        $xiaomihome->checkCmdOk('colormode', 'Mode', 'info', 'numeric', '0', '0', '0', 'line', '0');
         //$xiaomihome->checkAndUpdateCmd('color_mode', $color_mode);
         $xiaomihome->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '0', '0', '0', '<i class=\"fa fa-toggle-on\"></i>');
         $xiaomihome->checkCmdOk('on', 'action', 'Allumer', 'action', 'other', 'on', 'status', '0', 'light', '<i class=\"fa fa-sun-o\"></i>');
