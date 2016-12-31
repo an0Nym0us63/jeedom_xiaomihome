@@ -29,6 +29,17 @@ class xiaomihome extends eqLogic {
         //{"cmd":"write","model":"ctrl_neutral1","sid":"158d0000123456","short_id":4343,"data":"{\"channel_0\":\"on\",\"key\":\"3EB43E37C20AFF4C5872CC0D04D81314\"}" }
         $cmd = '{"cmd":"write","model":"' . $this->getConfiguration('model') . '","sid":"' . $this->getConfiguration('sid') . '","short_id":' . $this->getConfiguration('short_id') . ',"data":"{' . $request . ',\"key\":\"3EB43E37C20AFF4C5872CC0D04D81314\"}" }';
         $gateway = $this->getConfiguration('gateway');
+        $sock = socket_create(AF_INET, SOCK_DGRAM, 0);
+        // Actually write the data and send it off
+        if( ! socket_sendto($sock, $cmd , strlen($cmd) , 0 , $gateway , '9898')) {
+          $errorcode = socket_last_error();
+          $errormsg = socket_strerror($errorcode);
+          die("Could not send data: [$errorcode] $errormsg \n");
+          log::add('xiaomihome', 'error', 'Envoi impossible :  ' . $errorcode . ', avec message ' . $errormsg);
+        } else {
+          log::add('xiaomihome', 'debug', 'Envoi ok ' . $cmd);
+        }
+        socket_close($sock);
     }
 
     public function yeeStatus($ip) {
@@ -426,7 +437,7 @@ class xiaomihomeCmd extends cmd {
                 }
                 $eqLogic->yeeStatus($eqLogic->getConfiguration('gateway'));
             } else {
-
+                $eqLogic->aquaraAction($request);
             }
         }
     }

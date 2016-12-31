@@ -1,5 +1,11 @@
 [panel,primary]
 .Quel type de gateway Xiaomi est supporté ?
 --
-La "Aquara" pour le Zigbee qu'il faut bien paramétrer en mode développeur pour y accéder localement
+La "Aquara" pour le Zigbee qu'il faut bien paramétrer en mode développeur pour y accéder localement, pour cela il faut un firmware au moins en 1.4
+--
+
+[panel,primary]
+.Quelles ampoules sont supportées ?
+--
+Les Yeelight Wifi uniquement
 --
