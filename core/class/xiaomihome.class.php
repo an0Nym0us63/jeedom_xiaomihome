@@ -409,7 +409,6 @@ class xiaomihomeCmd extends cmd {
             $eqLogic = $this->getEqLogic();
             log::add('xiaomihome', 'debug', 'execute : ' . $this->getType() . ' ' . $eqLogic->getConfiguration('type') . ' ' . $this->getLogicalId());
             if ($eqLogic->getConfiguration('type') == 'yeelight') {
-                $request = $this->getConfiguration('request');
                 switch ($this->getSubType()) {
                     case 'slider':
                     $option = $_options['slider'];
@@ -425,10 +424,6 @@ class xiaomihomeCmd extends cmd {
                     break;
                     case 'color':
                     $option = str_replace('#','',$_options['color']);
-                    if ($option == '000000') {
-                        $option = '';
-                        $request = 'off';
-                    }
                     break;
                     case 'message':
                     $option = $_options['title'] . ' ' . $_options['message'];
@@ -438,7 +433,11 @@ class xiaomihomeCmd extends cmd {
                 }
                 //log::add('xiaomihome', 'debug', $eqLogic->getConfiguration('gateway') . ' ' . $this->getConfiguration('request') . ' ' . $option);
                 if ($this->getLogicalId() != 'refresh') {
-                    $eqLogic->yeeAction($eqLogic->getConfiguration('gateway'),$request,$option);
+                    if ($option == '000000') {
+                        $eqLogic->yeeAction($eqLogic->getConfiguration('gateway'),'off','');
+                    } else {
+                        $eqLogic->yeeAction($eqLogic->getConfiguration('gateway'),$this->getConfiguration('request'),$option);
+                    }
                 }
                 $eqLogic->yeeStatus($eqLogic->getConfiguration('gateway'));
             } else {
