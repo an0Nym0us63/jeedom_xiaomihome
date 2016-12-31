@@ -1,6 +1,8 @@
-=== Xiaomi Home, central Zigbee home automation and Wifi
+=== Xiaomi Home, pour les Aquara Home Gateway et lampes Yeeligt
 
-Xiaomi Home Gateway allows to use various sensors Zigbee Xiaomi.
+==== Xiaomi Aquara Home Gateway
+
+La Xiaomi Aquara Home Gateway permet d'utiliser différents capteurs Zigbee Xiaomi.
 
 Liste des capteurs compatibles :
 
@@ -34,3 +36,13 @@ Le plugin ne prend pas en charge aujourd'hui les appareils Wifi Xiaomi suivants 
   * Multiprise : http://www.gearbest.com/electronics-gadgets/pp_310701.html?lkid=10269968
 
   * Controleur IR : http://www.gearbest.com/smart-home/pp_229556.html?lkid=10269969
+
+==== Yeelight Wifi
+
+Le plugin permet également d'utiliser les ampoules et bandeau RGB Yeelight Wifi de Xiaomi
+
+  * Yeelight E27 Blanc : http://www.gearbest.com/smart-light-bulb/pp_278478.html?lkid=10269966
+
+  * Yeelight E27 RGB : http://www.gearbest.com/smart-lighting/pp_361555.html?lkid=10269964
+
+  * Bandeau Yeelight RGB : http://www.gearbest.com/smart-lighting/pp_424884.html?lkid=10269963

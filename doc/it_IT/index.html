@@ -417,13 +417,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#_description">1. Description</a>
 <ul class="sectlevel2">
-<li><a href="#_xiaomi_home_centrale_domotique_zigbee_et_wifi">1.1. Xiaomi Home, centrale domotique Zigbee et Wifi</a></li>
+<li><a href="#_xiaomi_home_pour_les_aquara_home_gateway_et_lampes_yeeligt">1.1. Xiaomi Home, pour les Aquara Home Gateway et lampes Yeeligt</a>
+<ul class="sectlevel3">
+<li><a href="#_xiaomi_aquara_home_gateway">1.1.1. Xiaomi Aquara Home Gateway</a></li>
+<li><a href="#_yeelight_wifi">1.1.2. Yeelight Wifi</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_configuration">2. Configuration</a>
 <ul class="sectlevel2">
 <li><a href="#_configuration_du_plugin">2.1. Configuration du plugin</a></li>
-<li><a href="#_configuration_de_la_gateway">2.2. Configuration de la gateway</a></li>
+<li><a href="#_configuration_de_la_gateway_aquara">2.2. Configuration de la gateway Aquara</a></li>
+<li><a href="#_configuration_des_lampes_yeelight">2.3. Configuration des lampes Yeelight</a></li>
+<li><a href="#_création_des_équipements">2.4. Création des équipements</a></li>
 </ul>
 </li>
 <li><a href="#_faq">3. FAQ</a></li>
@@ -435,9 +442,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_description">1. Description</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_xiaomi_home_centrale_domotique_zigbee_et_wifi">1.1. Xiaomi Home, centrale domotique Zigbee et Wifi</h3>
+<h3 id="_xiaomi_home_pour_les_aquara_home_gateway_et_lampes_yeeligt">1.1. Xiaomi Home, pour les Aquara Home Gateway et lampes Yeeligt</h3>
+<div class="sect3">
+<h4 id="_xiaomi_aquara_home_gateway">1.1.1. Xiaomi Aquara Home Gateway</h4>
 <div class="paragraph">
-<p>La Xiaomi Home Gateway permet d&#8217;utiliser différents capteurs Zigbee Xiaomi.</p>
+<p>La Xiaomi Aquara Home Gateway permet d&#8217;utiliser différents capteurs Zigbee Xiaomi.</p>
 </div>
 <div class="paragraph">
 <p>Liste des capteurs compatibles :</p>
@@ -495,7 +504,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_yeelight_wifi">1.1.2. Yeelight Wifi</h4>
+<div class="paragraph">
+<p>Le plugin permet également d&#8217;utiliser les ampoules et bandeau RGB Yeelight Wifi de Xiaomi</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Yeelight E27 Blanc : <a href="http://www.gearbest.com/smart-light-bulb/pp_278478.html?lkid=10269966" class="bare">http://www.gearbest.com/smart-light-bulb/pp_278478.html?lkid=10269966</a></p>
+</li>
+<li>
+<p>Yeelight E27 RGB : <a href="http://www.gearbest.com/smart-lighting/pp_361555.html?lkid=10269964" class="bare">http://www.gearbest.com/smart-lighting/pp_361555.html?lkid=10269964</a></p>
+</li>
+<li>
+<p>Bandeau Yeelight RGB : <a href="http://www.gearbest.com/smart-lighting/pp_424884.html?lkid=10269963" class="bare">http://www.gearbest.com/smart-lighting/pp_424884.html?lkid=10269963</a></p>
+</li>
+</ul>
+</div>
 <hr>
+</div>
 </div>
 </div>
 </div>
@@ -508,14 +537,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Le plugin ne comporte pas de configuration générale</p>
 </div>
 <div class="paragraph">
-<p>Il y a un service qui une fois démarré se connecte à la Xiaomi Gateway et récupère les informations</p>
-</div>
-<div class="paragraph">
-<p>Les équipements de la gateway sont créés automatiquement</p>
+<p>Il y a un service qui une fois démarré récupère les informations des Aquara Gateway et également les annonces de présence des Yeelight</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_de_la_gateway">2.2. Configuration de la gateway</h3>
+<h3 id="_configuration_de_la_gateway_aquara">2.2. Configuration de la gateway Aquara</h3>
 <div class="paragraph">
 <p>Il est par contre nécessaire de paramétrer la gateway en mode développeur</p>
 </div>
@@ -531,6 +557,30 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>Choisissez la première option et activer le bouton switch pour qu&#8217;il passe en vert, voilà le mode local est actif et votre gateway est accessible du réseau</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_configuration_des_lampes_yeelight">2.3. Configuration des lampes Yeelight</h3>
+<div class="paragraph">
+<p>Dans l&#8217;application Yeelight vous devez activer l&#8217;option développeur également</p>
+</div>
+<div class="paragraph">
+<p>C&#8217;est un switch a activé dans les options de chaque ampoule/bandeau</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_création_des_équipements">2.4. Création des équipements</h3>
+<div class="paragraph">
+<p>Les équipements Aquara et Yeelight sont créés automatiquement</p>
+</div>
+<div class="paragraph">
+<p>Pour les capteurs Aquara, c&#8217;est à leur remontée d&#8217;information et heartbeat donc très régulièrement.</p>
+</div>
+<div class="paragraph">
+<p>Pour les interrupteurs et boutons Aquara, il peut être nécessaire de les activer pour avoir la création des commandes (un clic par exemple)</p>
+</div>
+<div class="paragraph">
+<p>Pour les Yeelight, elles sont reconnues par le plugin quand elles s&#8217;annoncent, elles font une annonce par heure et quand elles sont branchées/allumées</p>
+</div>
 <hr>
 </div>
 </div>
@@ -541,7 +591,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="openblock panel">
 <div class="title">Quel type de gateway Xiaomi est supporté ?</div><div class="content">
 <div class="paragraph">
-<p>La "Aquara" pour le Zigbee qu&#8217;il faut bien paramétrer en mode développeur pour y accéder localement</p>
+<p>La "Aquara" pour le Zigbee qu&#8217;il faut bien paramétrer en mode développeur pour y accéder localement, pour cela il faut un firmware au moins en 1.4</p>
+</div>
+</div>
+</div>
+<div class="openblock panel">
+<div class="title">Quelles ampoules sont supportées ?</div><div class="content">
+<div class="paragraph">
+<p>Les Yeelight Wifi uniquement</p>
 </div>
 </div>
 </div>

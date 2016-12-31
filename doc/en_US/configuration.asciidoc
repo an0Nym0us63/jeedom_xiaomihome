@@ -2,11 +2,9 @@
 
 The plugin does not have general configuration.
 
-Il y a un service qui une fois démarré se connecte à la Xiaomi Gateway et récupère les informations
+Il y a un service qui une fois démarré récupère les informations des Aquara Gateway et également les annonces de présence des Yeelight
 
-Les équipements de la gateway sont créés automatiquement
-
-=== Configuration de la gateway
+=== Configuration de la gateway Aquara
 
 Il est par contre nécessaire de paramétrer la gateway en mode développeur
 
@@ -17,3 +15,19 @@ Ensuite cliquer dessus pour la sélectionner, là cliquer sur les "..." et enfin
 Là vous avez un numéro de version, cliquez dessus de facon répéter jusqu'à un message (oui en chinois ca aide pas :)) et 2 nouvelles options apparaissent
 
 Choisissez la première option et activer le bouton switch pour qu'il passe en vert, voilà le mode local est actif et votre gateway est accessible du réseau
+
+=== Configuration des lampes Yeelight
+
+Dans l'application Yeelight vous devez activer l'option développeur également
+
+C'est un switch a activé dans les options de chaque ampoule/bandeau
+
+=== Création des équipements
+
+Les équipements Aquara et Yeelight sont créés automatiquement
+
+Pour les capteurs Aquara, c'est à leur remontée d'information et heartbeat donc très régulièrement.
+
+Pour les interrupteurs et boutons Aquara, il peut être nécessaire de les activer pour avoir la création des commandes (un clic par exemple)
+
+Pour les Yeelight, elles sont reconnues par le plugin quand elles s'annoncent, elles font une annonce par heure et quand elles sont branchées/allumées
