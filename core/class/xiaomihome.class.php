@@ -22,7 +22,19 @@ class xiaomihome extends eqLogic {
     public function yeeAction($ip, $request, $option) {
         $cmd = 'yee --ip=' . $ip . ' ' . $request . ' ' . $option;
         log::add('xiaomihome', 'debug', $cmd);
-        exec($cmd);
+        //exec($cmd);
+        $cmd = '{\"id\":1,\"method\":\"toggle\",\"params\":[]}\r\n';
+        $sock = socket_create(AF_INET, SOCK_DGRAM, 0);
+        // Actually write the data and send it off
+        if( ! socket_sendto($sock, $cmd , strlen($cmd) , 0 , $ip , '55443')) {
+          $errorcode = socket_last_error();
+          $errormsg = socket_strerror($errorcode);
+          die("Could not send data: [$errorcode] $errormsg \n");
+          log::add('xiaomihome', 'error', 'Envoi impossible :  ' . $errorcode . ', avec message ' . $errormsg);
+        } else {
+          log::add('xiaomihome', 'debug', 'Envoi ok ' . $cmd);
+        }
+        socket_close($sock);
     }
 
     public function aquaraAction($request) {
