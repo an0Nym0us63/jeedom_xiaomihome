@@ -33,7 +33,7 @@ class xiaomihome extends eqLogic {
         if ($result === false ) {
             log::add('xiaomihome', 'error', 'Envoi impossible : ' . socket_strerror(socket_last_error()));
         } else {
-            $debug = socket_read($socket, 150);
+            $debug = socket_read($result, 150);
             log::add('xiaomihome', 'debug', 'Envoi ok ' . print_r($debug,true));
         }
         socket_close($sock);
