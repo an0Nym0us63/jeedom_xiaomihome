@@ -24,15 +24,17 @@ class xiaomihome extends eqLogic {
         log::add('xiaomihome', 'debug', $cmd);
         //exec($cmd);
         $cmd = '{\"id\":1,\"method\":\"toggle\",\"params\":[]}\r\n';
-        $sock = socket_create(AF_INET, SOCK_DGRAM, 0);
-        // Actually write the data and send it off
-        if( ! socket_sendto($sock, $cmd , strlen($cmd) , 0 , $ip , '55443')) {
-          $errorcode = socket_last_error();
-          $errormsg = socket_strerror($errorcode);
-          die("Could not send data: [$errorcode] $errormsg \n");
-          log::add('xiaomihome', 'error', 'Envoi impossible :  ' . $errorcode . ', avec message ' . $errormsg);
+        $port = '55443';
+        $sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        socket_set_option($sock, SOL_SOCKET, SO_RCVTIMEO, array("sec" => 0, "usec" => 300000));
+        socket_set_nonblock($sock);
+        socket_connect($sock, $ip, $port);
+        $result = socket_write($sock,$cmd,strlen($cmd));
+        if ($result === false ) {
+            log::add('xiaomihome', 'error', 'Envoi impossible : ' . socket_strerror(socket_last_error()));
         } else {
-          log::add('xiaomihome', 'debug', 'Envoi ok ' . $cmd);
+            $debug = socket_read($socket, 150);
+            log::add('xiaomihome', 'debug', 'Envoi ok ' . print_r($debug,true));
         }
         socket_close($sock);
     }
