@@ -309,14 +309,15 @@ public static function receiveData($sid, $model, $key, $value) {
                 $xiaomiactCmd->setEqLogic_id($xiaomihome->getId());
                 $xiaomiactCmd->setEqType('xiaomihome');
                 $xiaomiactCmd->setLogicalId($key . '-on');
-                $xiaomiactCmd->setType('info');
-                $xiaomiactCmd->setSubType($type);
+                $xiaomiactCmd->setType('action');
+                $xiaomiactCmd->setSubType('other');
                 if ($icone != '') {
                     $xiaomiactCmd->setDisplay('icon', $icone);
                 }
                 $xiaomiactCmd->setTemplate("mobile",$widget );
                 $xiaomiactCmd->setTemplate("dashboard",$widget );
                 $xiaomiactCmd->setValue($xiaomihomeCmd->getId());
+                $xiaomihomeCmd->setConfiguration('request', '{\" ' . $key . '\":\"on\"}');
                 $xiaomiactCmd->save();
             }
             $xiaomiactCmd = xiaomihomeCmd::byEqLogicIdAndLogicalId($xiaomihome->getId(),$key . '-off');
@@ -327,14 +328,15 @@ public static function receiveData($sid, $model, $key, $value) {
                 $xiaomiactCmd->setEqLogic_id($xiaomihome->getId());
                 $xiaomiactCmd->setEqType('xiaomihome');
                 $xiaomiactCmd->setLogicalId($key . '-off');
-                $xiaomiactCmd->setType('info');
-                $xiaomiactCmd->setSubType($type);
+                $xiaomiactCmd->setType('action');
+                $xiaomiactCmd->setSubType('other');
                 if ($icone != '') {
                     $xiaomiactCmd->setDisplay('icon', $icone);
                 }
                 $xiaomiactCmd->setTemplate("mobile",$widget );
                 $xiaomiactCmd->setTemplate("dashboard",$widget );
                 $xiaomiactCmd->setValue($xiaomihomeCmd->getId());
+                $xiaomihomeCmd->setConfiguration('request', '{\" ' . $key . '\":\"off\"}');
                 $xiaomiactCmd->save();
             }
         }
