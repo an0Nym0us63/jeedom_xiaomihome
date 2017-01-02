@@ -22,21 +22,7 @@ class xiaomihome extends eqLogic {
     public function yeeAction($ip, $request, $option) {
         $cmd = 'yee --ip=' . $ip . ' ' . $request . ' ' . $option;
         log::add('xiaomihome', 'debug', $cmd);
-        //exec($cmd);
-        $cmd = '{\"id\":1,\"method\":\"toggle\",\"params\":[]}\r\n';
-        $port = '55443';
-        $sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-        socket_set_option($sock, SOL_SOCKET, SO_RCVTIMEO, array("sec" => 0, "usec" => 300000));
-        socket_set_nonblock($sock);
-        socket_connect($sock, $ip, $port);
-        $result = socket_write($sock,$cmd,strlen($cmd));
-        if ($result === false ) {
-            log::add('xiaomihome', 'error', 'Envoi impossible : ' . socket_strerror(socket_last_error()));
-        } else {
-            $debug = socket_read($result, 150);
-            log::add('xiaomihome', 'debug', 'Envoi ok ' . print_r($debug,true));
-        }
-        socket_close($sock);
+        exec($cmd);
     }
 
     public function aquaraAction($request) {
