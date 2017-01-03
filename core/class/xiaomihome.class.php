@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 class xiaomihome extends eqLogic {
 
     public function yeeAction($ip, $request, $option) {
-        $cmd = 'yee --ip=' . $ip . ' ' . $request . ' ' . $option;
+        $cmd = realpath(dirname(__FILE__) . '/../../resources/yeecli.py --ip=' . $ip . ' ' . $request . ' ' . $option;
         log::add('xiaomihome', 'debug', $cmd);
         exec($cmd);
     }
@@ -97,6 +97,8 @@ class xiaomihome extends eqLogic {
     $xiaomihome->checkCmdOk('refresh', 'Raffraichir', 'action', 'other', 'refresh', '0', '0', '0', '<i class="fa fa-refresh"></i>');
     $xiaomihome->checkCmdOk('on', 'Allumer', 'action', 'other', 'turn on', 'status', '1', 'light', '<i class="fa fa-sun-o"></i>');
     $xiaomihome->checkCmdOk('off', 'Eteindre', 'action', 'other', 'turn off', 'status', '1', 'light', '<i class="fa fa-power-off"></i>');
+    $xiaomihome->checkCmdOk('cron', 'Extinction programmée', 'action', 'slider', 'cron', '0', '0', '0', '<i class="fa fa-power-off"></i>');
+    $xiaomihome->checkCmdOk('flow', 'Enchainement', 'action', 'message', 'flow', '0', '0', '0', '0');
 
     //brightness 0-100
     $xiaomihome->checkCmdOk('brightness', 'Luminosité', 'info', 'numeric', '0', '0', '0', 'line', '0');
@@ -152,6 +154,10 @@ public function checkCmdOk($_id, $_name, $_type, $_subtype, $_request, $_setvalu
                 case 'temperatureAct':
                 $xiaomihomeCmd->setConfiguration('minValue', 1700);
                 $xiaomihomeCmd->setConfiguration('maxValue', 6500);
+                break;
+                case 'cron':
+                $xiaomihomeCmd->setConfiguration('minValue', 1);
+                $xiaomihomeCmd->setConfiguration('maxValue', 300);
                 break;
             }
         }
@@ -433,6 +439,12 @@ public static function dependancy_install() {
 }
 
 class xiaomihomeCmd extends cmd {
+    public function preSave() {
+        if ($this->getSubtype() == 'message') {
+            $this->setDisplay('message_disable', 1);
+        }
+    }
+
     public function execute($_options = null) {
         if ($this->getType() == 'info') {
             return $this->getConfiguration('value');
@@ -457,7 +469,7 @@ class xiaomihomeCmd extends cmd {
                     $option = str_replace('#','',$_options['color']);
                     break;
                     case 'message':
-                    $option = $_options['title'] . ' ' . $_options['message'];
+                    $option = $_options['title'];
                     break;
                     default :
                     $option = '';
