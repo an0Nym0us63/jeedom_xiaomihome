@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 class xiaomihome extends eqLogic {
 
     public function yeeAction($ip, $request, $option) {
-        $cmd = realpath(dirname(__FILE__) . '/../../resources/yeecli.py --ip=' . $ip . ' ' . $request . ' ' . $option;
+        $cmd = realpath(dirname(__FILE__)) . '/../../resources/yeecli.py --ip=' . $ip . ' ' . $request . ' ' . $option;
         log::add('xiaomihome', 'debug', $cmd);
         exec($cmd);
     }
