@@ -121,7 +121,6 @@ def hsv(hue, saturation):
 @click.argument("instance", type=int)
 @click.argument("ending", type=str)
 @click.argument("transitions", type=str)
-"""Ending : recover, stay, off"""
 def flow(hue, saturation):
     """Set the Flow of the bulb."""
     click.echo("Setting the bulb to HSV {}, {}...".format(instance, ending, transitions))
