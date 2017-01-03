@@ -415,9 +415,11 @@ public static function dependancy_info() {
     $return['log'] = 'xiaomihome_dep';
     $cmd = "pip list | grep yeecli";
     exec($cmd, $output, $return_var);
+    $cmd2 = "pip list | grep future";
+    exec($cmd2, $output2, $return_var2);
     $return['state'] = 'nok';
     if (array_key_exists(0,$output)) {
-        if ($output[0] != "") {
+        if ($output[0] != "" && $output2[0] != "") {
             $return['state'] = 'ok';
         }
     }
@@ -425,7 +427,7 @@ public static function dependancy_info() {
 }
 
 public static function dependancy_install() {
-    exec('sudo apt-get -y install python-pip && sudo pip install yeecli > ' . log::getPathToLog('xiaomihome_dep') . ' 2>&1 &');
+    exec('sudo apt-get -y install python-pip && sudo pip install yeecli && sudo pip install future > ' . log::getPathToLog('xiaomihome_dep') . ' 2>&1 &');
 }
 
 }
