@@ -38,18 +38,18 @@ Pour les Yeelight, une commande spéciale est créée qui a vocation à être ut
 
 C'est une commande message qui doit avoir par exemple :
 
-3 recover [RGBTransition(255, 0, 0), SleepTransition(400)]
+3 recover RGBTransition(255,0,0);SleepTransition(400)
 
   - 3 : c'est un chiffre représentant le nombre de fois que la suite d'effets doit être appliquée avant de s'arrêter (0 veut dire illimité)
 
   - recover : une des 3 options possible (recover = retour à l'état avant effet, off = s'eteint ensuite, stay = reste au statut de fin de boucle)
 
-  - le troisième élément est la suite des états avec leur transition, il y en a 4 possible
+  - le troisième élément est la suite des états avec leur transition, il y en a 4 possible (attention à bien ne pas mettre d'espaces)
 
-    - HSVTransition(hue, saturation, duration=300, brightness=100)
+    - HSVTransition(hue,saturation,duration=300,brightness=100)
 
-    - RGBTransition(red, green, blue, duration=300, brightness=100)
+    - RGBTransition(red,green,blue,duration=300,brightness=100)
 
-    - TemperatureTransition(degrees, duration=300, brightness=100)
-    
+    - TemperatureTransition(degrees,duration=300,brightness=100)
+
     - yeelight.SleepTransition(duration=300)

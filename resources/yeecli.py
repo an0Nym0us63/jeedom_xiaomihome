@@ -125,8 +125,9 @@ def hsv(hue, saturation):
 def flow(hue, saturation):
     """Set the Flow of the bulb."""
     click.echo("Setting the bulb to HSV {}, {}...".format(instance, ending, transitions))
+    translist = transitions.split(';')
     for bulb in BULBS:
-        bulb.Flow(instance, 'Flow.actions.' + ending, transitions)
+        bulb.Flow(instance, 'Flow.actions.' + ending, translist)
 
 
 @cli.command()
