@@ -132,7 +132,7 @@ public function checkCmdOk($_id, $_name, $_type, $_subtype, $_request, $_setvalu
         log::add('xiaomihome', 'debug', 'Création de la commande ' . $_id);
         $xiaomihomeCmd = new xiaomihomeCmd();
         $xiaomihomeCmd->setName(__($_name, __FILE__));
-        $xiaomihomeCmd->setEqLogic_id($this->getId());
+        $xiaomihomeCmd->setEqLogic_id($this->id);
         $xiaomihomeCmd->setEqType('xiaomihome');
         $xiaomihomeCmd->setLogicalId($_id);
         $xiaomihomeCmd->setType($_type);
@@ -293,7 +293,7 @@ public static function receiveData($sid, $model, $key, $value) {
             log::add('xiaomihome', 'debug', 'Création de la commande ' . $key);
             $xiaomihomeCmd = new xiaomihomeCmd();
             $xiaomihomeCmd->setName(__($key, __FILE__));
-            $xiaomihomeCmd->setEqLogic_id($xiaomihome->getId());
+            $xiaomihomeCmd->setEqLogic_id($xiaomihome->id);
             $xiaomihomeCmd->setEqType('xiaomihome');
             $xiaomihomeCmd->setLogicalId($key);
             $xiaomihomeCmd->setType('info');
@@ -312,7 +312,7 @@ public static function receiveData($sid, $model, $key, $value) {
                 log::add('xiaomihome', 'debug', 'Création de la commande ' . $key . '-on');
                 $xiaomiactCmd = new xiaomihomeCmd();
                 $xiaomiactCmd->setName(__($key . '-on', __FILE__));
-                $xiaomiactCmd->setEqLogic_id($xiaomihome->getId());
+                $xiaomiactCmd->setEqLogic_id($xiaomihome->id);
                 $xiaomiactCmd->setEqType('xiaomihome');
                 $xiaomiactCmd->setLogicalId($key . '-on');
                 $xiaomiactCmd->setType('action');
@@ -331,7 +331,7 @@ public static function receiveData($sid, $model, $key, $value) {
                 log::add('xiaomihome', 'debug', 'Création de la commande ' . $key . '-off');
                 $xiaomiactCmd = new xiaomihomeCmd();
                 $xiaomiactCmd->setName(__($key . '-off', __FILE__));
-                $xiaomiactCmd->setEqLogic_id($xiaomihome->getId());
+                $xiaomiactCmd->setEqLogic_id($xiaomihome->id);
                 $xiaomiactCmd->setEqType('xiaomihome');
                 $xiaomiactCmd->setLogicalId($key . '-off');
                 $xiaomiactCmd->setType('action');
