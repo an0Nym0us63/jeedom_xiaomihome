@@ -12,7 +12,7 @@ def hex_color_to_rgb(color):
         red, green, blue = (255, 0, 0)
     return red, green, blue
 
-bulb = yeelight.Bulb(sys.argv[1])
+bulb = yeelight.Bulb(sys.argv[1], 55443, 'smooth', 500, True)
 
 if sys.argv[2] == 'brightness':
     bulb.set_brightness(sys.argv[3])
@@ -22,14 +22,15 @@ elif sys.argv[2] == 'hsv':
     bulb.set_hsv(sys.argv[3], sys.argv[4])
 elif sys.argv[2] == 'flow':
     translist = sys.argv[5].split(';')
-    bulb.Flow(sys.argv[3],'Flow.actions.' + sys.argv[4],translist)
+    flow = Flow(sys.argv[3],'Flow.actions.' + sys.argv[4],translist)
+    bulb.start_flow(flow)
 elif sys.argv[2] == 'rgb':
     red, green, blue = hex_color_to_rgb(sys.argv[3])
     bulb.set_rgb(red, green, blue)
 elif sys.argv[2] == 'toggle':
     bulb.toggle()
 elif sys.argv[2] == 'cron':
-    bulb.cron_add(sys.argv[3])
+    bulb.cron_add(CronType.off, sys.argv[3])
 elif sys.argv[3] == 'on':
     bulb.turn_on()
 elif sys.argv[3] == 'off':
