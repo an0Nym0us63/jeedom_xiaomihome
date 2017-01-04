@@ -91,24 +91,25 @@ class xiaomihome extends eqLogic {
     $xiaomihome->setConfiguration('lastCommunication',date('Y-m-d H:i:s'));
     $xiaomihome->save();
 
-    $xiaomihome->checkCmdOk('status', 'Statut', 'info', 'binary', '0', '0', '1', 'light', '0');
+    $xiaomihome->checkCmdOk('status', 'Statut', 'info', 'binary', '0', '0', '0', 'light', '0');
     $power = ($power == 'off')? 0:1;
     $xiaomihome->checkAndUpdateCmd('status', $power);
-    $xiaomihome->checkCmdOk('colormode', 'Mode', 'info', 'numeric', '0', '0', '0', 'line', '0');
-    $xiaomihome->checkAndUpdateCmd('color_mode', $color_mode);
     $xiaomihome->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '0', '0', '0', '<i class="fa fa-toggle-on"></i>');
     $xiaomihome->checkCmdOk('refresh', 'Raffraichir', 'action', 'other', 'refresh', '0', '0', '0', '<i class="fa fa-refresh"></i>');
-    $xiaomihome->checkCmdOk('on', 'Allumer', 'action', 'other', 'turn on', 'status', '1', 'light', '<i class="fa fa-sun-o"></i>');
-    $xiaomihome->checkCmdOk('off', 'Eteindre', 'action', 'other', 'turn off', 'status', '1', 'light', '<i class="fa fa-power-off"></i>');
+    $xiaomihome->checkCmdOk('on', 'Allumer', 'action', 'other', 'turn on', 'status', '0', 'light', '<i class="fa fa-sun-o"></i>');
+    $xiaomihome->checkCmdOk('off', 'Eteindre', 'action', 'other', 'turn off', 'status', '0', 'light', '<i class="fa fa-power-off"></i>');
     /*$xiaomihome->checkCmdOk('cron', 'Extinction programmée', 'action', 'slider', 'cron', '0', '0', '0', '<i class="fa fa-power-off"></i>');
     $xiaomihome->checkCmdOk('flow', 'Enchainement', 'action', 'message', 'flow', '0', '0', '0', '0');*/
 
     //brightness 0-100
-    $xiaomihome->checkCmdOk('brightness', 'Luminosité', 'info', 'numeric', '0', '0', '0', 'line', '0');
+    $xiaomihome->checkCmdOk('brightness', 'Luminosité', 'info', 'numeric', '0', '0', '0', 'light', '0');
     $xiaomihome->checkAndUpdateCmd('brightness', $bright);
-    $xiaomihome->checkCmdOk('brightnessAct', 'Définir Luminosité', 'action', 'slider', 'brightness', 'brightness', '1', '0', '0');
+    $xiaomihome->checkCmdOk('brightnessAct', 'Définir Luminosité', 'action', 'slider', 'brightness', 'brightness', '1', 'light', '0');
 
     if ($model != 'mono') {
+        $xiaomihome->checkCmdOk('colormode', 'Mode', 'info', 'numeric', '0', '0', '0', 'line', '0');
+        $xiaomihome->checkAndUpdateCmd('color_mode', $color_mode);
+
         //RGB
         $xiaomihome->checkCmdOk('rgb', 'Couleur RGB', 'info', 'string', '0', '0', '0', 'line', '0');
         $xiaomihome->checkAndUpdateCmd('rgb', '#' . str_pad(dechex($rgb), 6, "0", STR_PAD_LEFT));
