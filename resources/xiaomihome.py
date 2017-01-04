@@ -2,7 +2,7 @@ import logging
 import sys
 import time
 from aquara import *
-from yeelighthome import *
+from yeehome import *
 import threading
 import requests
 
