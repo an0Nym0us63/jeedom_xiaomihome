@@ -4,7 +4,7 @@ The plugin does not have general configuration.
 
 Il y a un service qui une fois démarré récupère les informations des Aquara Gateway et également les annonces de présence des Yeelight
 
-=== Configuration de la gateway Aquara
+==== Configuration de la gateway Aquara
 
 Il est par contre nécessaire de paramétrer la gateway en mode développeur
 
@@ -16,7 +16,7 @@ Là vous avez un numéro de version, cliquez dessus de facon répéter jusqu'à 
 
 Choisissez la première option et activer le bouton switch pour qu'il passe en vert, voilà le mode local est actif et votre gateway est accessible du réseau
 
-=== Configuration des lampes Yeelight
+==== Configuration des lampes Yeelight
 
 Dans l'application Yeelight vous devez activer l'option développeur également
 
@@ -31,3 +31,25 @@ Pour les capteurs Aquara, c'est à leur remontée d'information et heartbeat don
 Pour les interrupteurs et boutons Aquara, il peut être nécessaire de les activer pour avoir la création des commandes (un clic par exemple)
 
 Pour les Yeelight, elles sont reconnues par le plugin quand elles s'annoncent, elles font une annonce par heure et quand elles sont branchées/allumées
+
+==== Commande Ecnhainement des Yeelight
+
+Pour les Yeelight, une commande spéciale est créée qui a vocation à être utilisée en scénario seulement car on doit envoyer un contenu précis à la commande.
+
+C'est une commande message qui doit avoir par exemple :
+
+3 recover RGBTransition(255,0,0);SleepTransition(400)
+
+  - 3 : c'est un chiffre représentant le nombre de fois que la suite d'effets doit être appliquée avant de s'arrêter (0 veut dire illimité)
+
+  - recover : une des 3 options possible (recover = retour à l'état avant effet, off = s'eteint ensuite, stay = reste au statut de fin de boucle)
+
+  - le troisième élément est la suite des états avec leur transition, il y en a 4 possible (attention à bien ne pas mettre d'espaces)
+
+    - HSVTransition(hue,saturation,duration=300,brightness=100)
+
+    - RGBTransition(red,green,blue,duration=300,brightness=100)
+
+    - TemperatureTransition(degrees,duration=300,brightness=100)
+
+    - yeelight.SleepTransition(duration=300)

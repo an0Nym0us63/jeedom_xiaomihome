@@ -427,10 +427,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_configuration">2. Configuration</a>
 <ul class="sectlevel2">
-<li><a href="#_configuration_du_plugin">2.1. Configuration du plugin</a></li>
-<li><a href="#_configuration_de_la_gateway_aquara">2.2. Configuration de la gateway Aquara</a></li>
-<li><a href="#_configuration_des_lampes_yeelight">2.3. Configuration des lampes Yeelight</a></li>
-<li><a href="#_création_des_équipements">2.4. Création des équipements</a></li>
+<li><a href="#_configuration_du_plugin">2.1. Configuration du plugin</a>
+<ul class="sectlevel3">
+<li><a href="#_configuration_de_la_gateway_aquara">2.1.1. Configuration de la gateway Aquara</a></li>
+<li><a href="#_configuration_des_lampes_yeelight">2.1.2. Configuration des lampes Yeelight</a></li>
+</ul>
+</li>
+<li><a href="#_création_des_équipements">2.2. Création des équipements</a>
+<ul class="sectlevel3">
+<li><a href="#_commande_ecnhainement_des_yeelight">2.2.1. Commande Ecnhainement des Yeelight</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_faq">3. FAQ</a></li>
@@ -539,9 +546,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>Il y a un service qui une fois démarré récupère les informations des Aquara Gateway et également les annonces de présence des Yeelight</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_configuration_de_la_gateway_aquara">2.2. Configuration de la gateway Aquara</h3>
+<div class="sect3">
+<h4 id="_configuration_de_la_gateway_aquara">2.1.1. Configuration de la gateway Aquara</h4>
 <div class="paragraph">
 <p>Il est par contre nécessaire de paramétrer la gateway en mode développeur</p>
 </div>
@@ -558,8 +564,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Choisissez la première option et activer le bouton switch pour qu&#8217;il passe en vert, voilà le mode local est actif et votre gateway est accessible du réseau</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_configuration_des_lampes_yeelight">2.3. Configuration des lampes Yeelight</h3>
+<div class="sect3">
+<h4 id="_configuration_des_lampes_yeelight">2.1.2. Configuration des lampes Yeelight</h4>
 <div class="paragraph">
 <p>Dans l&#8217;application Yeelight vous devez activer l&#8217;option développeur également</p>
 </div>
@@ -567,8 +573,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>C&#8217;est un switch a activé dans les options de chaque ampoule/bandeau</p>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="_création_des_équipements">2.4. Création des équipements</h3>
+<h3 id="_création_des_équipements">2.2. Création des équipements</h3>
 <div class="paragraph">
 <p>Les équipements Aquara et Yeelight sont créés automatiquement</p>
 </div>
@@ -581,7 +588,44 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>Pour les Yeelight, elles sont reconnues par le plugin quand elles s&#8217;annoncent, elles font une annonce par heure et quand elles sont branchées/allumées</p>
 </div>
+<div class="sect3">
+<h4 id="_commande_ecnhainement_des_yeelight">2.2.1. Commande Ecnhainement des Yeelight</h4>
+<div class="paragraph">
+<p>Pour les Yeelight, une commande spéciale est créée qui a vocation à être utilisée en scénario seulement car on doit envoyer un contenu précis à la commande.</p>
+</div>
+<div class="paragraph">
+<p>C&#8217;est une commande message qui doit avoir par exemple :</p>
+</div>
+<div class="paragraph">
+<p>3 recover RGBTransition(255,0,0);SleepTransition(400)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>3 : c&#8217;est un chiffre représentant le nombre de fois que la suite d&#8217;effets doit être appliquée avant de s&#8217;arrêter (0 veut dire illimité)</p>
+</li>
+<li>
+<p>recover : une des 3 options possible (recover = retour à l&#8217;état avant effet, off = s&#8217;eteint ensuite, stay = reste au statut de fin de boucle)</p>
+</li>
+<li>
+<p>le troisième élément est la suite des états avec leur transition, il y en a 4 possible (attention à bien ne pas mettre d&#8217;espaces)</p>
+</li>
+<li>
+<p>HSVTransition(hue,saturation,duration=300,brightness=100)</p>
+</li>
+<li>
+<p>RGBTransition(red,green,blue,duration=300,brightness=100)</p>
+</li>
+<li>
+<p>TemperatureTransition(degrees,duration=300,brightness=100)</p>
+</li>
+<li>
+<p>yeelight.SleepTransition(duration=300)</p>
+</li>
+</ul>
+</div>
 <hr>
+</div>
 </div>
 </div>
 </div>
