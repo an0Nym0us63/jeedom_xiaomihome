@@ -20,7 +20,8 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 class xiaomihome extends eqLogic {
 
     public function yeeAction($ip, $request, $option) {
-        $cmd = 'python ' . realpath(dirname(__FILE__)) . '/../../resources/yeecli.py ' . $ip . ' ' . $request . ' ' . $option;
+        //$cmd = 'python ' . realpath(dirname(__FILE__)) . '/../../resources/yeecli.py ' . $ip . ' ' . $request . ' ' . $option;
+        $cmd = 'yeecli --ip=' . $ip . ' ' . $request . ' ' . $option;
         log::add('xiaomihome', 'debug', $cmd);
         exec($cmd);
     }
@@ -96,9 +97,9 @@ class xiaomihome extends eqLogic {
     $xiaomihome->checkCmdOk('toggle', 'Toggle', 'action', 'other', 'toggle', '0', '0', '0', '<i class="fa fa-toggle-on"></i>');
     $xiaomihome->checkCmdOk('refresh', 'Raffraichir', 'action', 'other', 'refresh', '0', '0', '0', '<i class="fa fa-refresh"></i>');
     $xiaomihome->checkCmdOk('on', 'Allumer', 'action', 'other', 'turn on', 'status', '1', 'light', '<i class="fa fa-sun-o"></i>');
-    $xiaomihome->checkCmdOk('off', 'Eteindre', 'action', 'other', 'turn off', 'status', '1', 'light', '<i class="fa fa-power-off"></i>');
+    /*$xiaomihome->checkCmdOk('off', 'Eteindre', 'action', 'other', 'turn off', 'status', '1', 'light', '<i class="fa fa-power-off"></i>');
     $xiaomihome->checkCmdOk('cron', 'Extinction programmée', 'action', 'slider', 'cron', '0', '0', '0', '<i class="fa fa-power-off"></i>');
-    $xiaomihome->checkCmdOk('flow', 'Enchainement', 'action', 'message', 'flow', '0', '0', '0', '0');
+    $xiaomihome->checkCmdOk('flow', 'Enchainement', 'action', 'message', 'flow', '0', '0', '0', '0');*/
 
     //brightness 0-100
     $xiaomihome->checkCmdOk('brightness', 'Luminosité', 'info', 'numeric', '0', '0', '0', 'line', '0');
@@ -421,7 +422,7 @@ public static function dependancy_info() {
     $return['log'] = 'xiaomihome_dep';
     $cmd = "pip list | grep yeecli";
     exec($cmd, $output, $return_var);
-    $cmd2 = "pip list | grep future";
+    $cmd2 = "pip list | grep mihome";
     exec($cmd2, $output2, $return_var2);
     $return['state'] = 'nok';
     if (array_key_exists(0,$output)) {
@@ -433,7 +434,7 @@ public static function dependancy_info() {
 }
 
 public static function dependancy_install() {
-    exec('sudo apt-get -y install python-pip && sudo pip install yeecli && sudo pip install future > ' . log::getPathToLog('xiaomihome_dep') . ' 2>&1 &');
+    exec('sudo apt-get -y install python-pip && sudo pip install yeecli && sudo pip install mihome > ' . log::getPathToLog('xiaomihome_dep') . ' 2>&1 &');
 }
 
 }
